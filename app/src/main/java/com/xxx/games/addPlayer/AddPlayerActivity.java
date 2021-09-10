@@ -1,0 +1,97 @@
+package com.xxx.games.addPlayer;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.xxx.games.BR;
+import com.xxx.games.R;
+import com.xxx.games.databinding.ActivityAddPlayerBinding;
+import com.xxx.games.utils.LoggerUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import me.goldze.mvvmhabit.base.BaseActivity;
+import me.goldze.mvvmhabit.base.BaseViewModel;
+import me.goldze.mvvmhabit.utils.ACache;
+import me.goldze.mvvmhabit.widget.AutoLineLayoutManager;
+
+/**
+ * Created by Supopo. on 2021/9/10.
+ * 添加玩家
+ */
+public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, BaseViewModel> {
+
+    private TagsAdapter tagsAdapter;
+    private List<TagBean> names;
+    private TagBean players;
+
+    @Override
+    public int initContentView(Bundle savedInstanceState) {
+        return R.layout.activity_add_player;
+    }
+
+    @Override
+    public int initVariableId() {
+        return BR.viewModel;
+    }
+
+    @Override
+    public void initParam() {
+        super.initParam();
+        //获取本地存储的数据
+        players = (TagBean) ACache.get(this).getAsObject("players");
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        initAdapter();
+        tagsAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                LoggerUtil.i("--", "删除了。");
+                tagsAdapter.remove(position);
+                return false;
+            }
+        });
+
+        binding.btnAdd.setOnClickListener(lis -> {
+            names.add(new TagBean(binding.etTag.getText().toString().trim()));
+            tagsAdapter.addData(new TagBean(binding.etTag.getText().toString().trim()));
+            binding.etTag.setText("");
+        });
+
+        binding.tvSave.setOnClickListener(lis -> {
+            Intent intent = getIntent();
+            TagBean tagBean = new TagBean();
+            tagBean.setTags(tagsAdapter.getData());
+            intent.putExtra("tags", tagBean);
+            //储存到本地
+            ACache.get(this).put("players", tagBean);
+
+            setResult(101, intent);
+            finish();
+        });
+    }
+
+    private void initAdapter() {
+        tagsAdapter = new TagsAdapter(R.layout.item_tags);
+        binding.rvNames.setAdapter(tagsAdapter);
+        binding.rvNames.setLayoutManager(new LinearLayoutManager(this));
+
+        if (players != null && players.getTags() != null) {
+            names = players.getTags();
+        } else {
+            names = new ArrayList<>();
+        }
+        tagsAdapter.setList(names);
+    }
+}

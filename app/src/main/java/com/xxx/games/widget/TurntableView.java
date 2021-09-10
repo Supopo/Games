@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by shaohuachen on 2019/1/7 0007.
+ * 大转盘
  */
 
 public class TurntableView extends View {
@@ -277,7 +277,7 @@ public class TurntableView extends View {
     private void drawText(Canvas canvas) {
         mPaint.setColor(Color.WHITE);
         mPaint.setTextAlign(Paint.Align.CENTER);
-        mPaint.setTextSize(30);
+        mPaint.setTextSize(mPanNum > 8 ? 30 : 50);
         RectF rectF = new RectF(0, 0, mWid, mHei);
 
         //计算text文本的高度
@@ -558,6 +558,22 @@ public class TurntableView extends View {
             mNamesStrs.addAll(names);
             mBitmaps.clear();
             mBitmaps.addAll(bitmaps);
+            invalidate();
+        }
+    }
+
+    public void setDatas(ArrayList<String> names, ArrayList<Integer> colors) {
+        //转盘转动时候不能修改值
+        if (isDrawingLottery) {
+            return;
+        }
+        if (names != null && names.size() > 1) {
+            mPanNum = names.size();
+            mOffsetAngle = (float) 360 / (float) mPanNum;
+            mNamesStrs.clear();
+            mNamesStrs.addAll(names);
+            mColors.clear();
+            mColors.addAll(colors);
             invalidate();
         }
     }

@@ -3,6 +3,7 @@ package com.xxx.games;
 import android.os.Bundle;
 
 import com.xxx.games.databinding.ActivityMainBinding;
+import com.xxx.games.truthOrDare.TruthOrDareActivity;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 
