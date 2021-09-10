@@ -2,6 +2,7 @@ package com.xxx.games.addPlayer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -57,15 +58,17 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
         tagsAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
-                LoggerUtil.i("--", "删除了。");
                 tagsAdapter.remove(position);
                 return false;
             }
         });
 
         binding.btnAdd.setOnClickListener(lis -> {
-            names.add(new TagBean(binding.etTag.getText().toString().trim()));
-            tagsAdapter.addData(new TagBean(binding.etTag.getText().toString().trim()));
+            if (TextUtils.isEmpty(binding.etTag.getText().toString().trim())) {
+                return;
+            }
+            names.add(new TagBean(binding.etTag.getText().toString()));
+            tagsAdapter.addData(new TagBean(binding.etTag.getText().toString()));
             binding.etTag.setText("");
         });
 

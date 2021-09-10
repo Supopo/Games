@@ -335,6 +335,13 @@ public class TurntableView extends View {
         }
         //随机
         int random = getRandom(mPanNum);
+        //判断如果随机数的名字包含i多随即一次
+        LoggerUtil.i("--", "随机到: " + random + "-" + mNamesStrs.get(random));
+        if (mNamesStrs.get(random).contains("i") || mNamesStrs.get(random).contains("o") || mNamesStrs.get(random).contains("u")) {
+            random = getRandom(mPanNum);
+            LoggerUtil.i("--", "又随机到: " + random + "-" + mNamesStrs.get(random));
+
+        }
         setScrollToPosition(random);
     }
 
