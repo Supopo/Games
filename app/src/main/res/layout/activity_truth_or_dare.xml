@@ -7,6 +7,7 @@
     <data></data>
 
     <RelativeLayout
+        android:background="#252525"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".truthOrDare.TruthOrDareActivity">
@@ -16,9 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:layout_marginRight="20dp"
             android:padding="10dp"
+            android:textColor="@color/white"
             android:text="添加玩家" />
 
         <RelativeLayout

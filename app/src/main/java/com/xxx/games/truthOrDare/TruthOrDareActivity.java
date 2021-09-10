@@ -12,6 +12,7 @@ import com.xxx.games.addPlayer.AddPlayerActivity;
 import com.xxx.games.addPlayer.TagBean;
 import com.xxx.games.databinding.ActivityTruthOrDareBinding;
 import com.xxx.games.widget.ITurntableListener;
+import com.xxx.games.widget.ShowTruthOrDareDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import me.goldze.mvvmhabit.utils.ACache;
 public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding, BaseViewModel> {
 
     private TagBean players;
+    private ShowTruthOrDareDialog dareDialog;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     @Override
     public void initData() {
         super.initData();
+        setStatusBarTransparent();
 
         if (players != null && players.getTags() != null) {
             ArrayList<String> names = new ArrayList<>();
@@ -74,13 +77,12 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
             binding.turntable.startRotate(new ITurntableListener() {
                 @Override
                 public void onStart() {
-                    Toast.makeText(TruthOrDareActivity.this, "开始抽奖", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onEnd(int position, String name) {
-                    Toast.makeText(TruthOrDareActivity.this,
-                            name + "中奖了", Toast.LENGTH_SHORT).show();
+                    dareDialog = new ShowTruthOrDareDialog(TruthOrDareActivity.this, name);
+                    dareDialog.showDialog();
                 }
             });
         });

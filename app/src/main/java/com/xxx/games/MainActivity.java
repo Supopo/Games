@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void initData() {
         super.initData();
+        setStatusBarTransparent();
     }
 
     @Override
