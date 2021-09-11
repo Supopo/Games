@@ -10,12 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.databinding.ActivityAddPlayerBinding;
-import com.xxx.games.utils.LoggerUtil;
+import com.xxx.games.databinding.ActivityAddQuasBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +21,20 @@ import java.util.List;
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.utils.ACache;
-import me.goldze.mvvmhabit.widget.AutoLineLayoutManager;
 
 /**
  * Created by Supopo. on 2021/9/10.
- * 添加玩家
+ * 添加真心话
  */
-public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, BaseViewModel> {
+public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseViewModel> {
 
     private TagsAdapter tagsAdapter;
-    private List<TagBean> names;
-    private TagBean players;
+    private List<TagBean> quas;
+    private TagBean quaCache;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_add_player;
+        return R.layout.activity_add_quas;
     }
 
     @Override
@@ -49,7 +46,7 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
     public void initParam() {
         super.initParam();
         //获取本地存储的数据
-        players = (TagBean) ACache.get(this).getAsObject("players");
+        quaCache = (TagBean) ACache.get(this).getAsObject("quas");
     }
 
     @Override
@@ -70,11 +67,12 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
         binding.tvBack.setOnClickListener(lis -> {
             finish();
         });
+
         binding.btnAdd.setOnClickListener(lis -> {
             if (TextUtils.isEmpty(binding.etTag.getText().toString().trim())) {
                 return;
             }
-            names.add(new TagBean(binding.etTag.getText().toString()));
+            quas.add(new TagBean(binding.etTag.getText().toString()));
             tagsAdapter.addData(new TagBean(binding.etTag.getText().toString()));
             binding.etTag.setText("");
         });
@@ -84,10 +82,10 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
 
             Intent intent = getIntent();
             TagBean tagBean = new TagBean();
-            tagBean.setTags(tagsAdapter.getData());
+            tagBean.setQuado(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
             //储存到本地
-            ACache.get(this).put("players", tagBean);
+            ACache.get(this).put("quas", tagBean);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -98,8 +96,7 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
                     finish();
                 }
             }, 300);
-            setResult(101, intent);
-            finish();
+
         });
     }
 
@@ -108,13 +105,11 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
         binding.rvNames.setAdapter(tagsAdapter);
         binding.rvNames.setLayoutManager(new LinearLayoutManager(this));
 
-        if (players != null && players.getTags() != null) {
-            names = players.getTags();
-        } else {
-            names = new ArrayList<>();
+        quas = new ArrayList<>();
+        if (quaCache != null && quaCache.getQuado() != null) {
+            quas.addAll(quaCache.getQuado());
         }
-        tagsAdapter.setList(names);
-
+        tagsAdapter.setList(quas);
 
         tagsAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override

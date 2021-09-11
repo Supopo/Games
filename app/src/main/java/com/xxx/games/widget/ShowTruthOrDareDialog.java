@@ -10,7 +10,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.xxx.games.R;
+import com.xxx.games.addPlayer.TagBean;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -21,6 +23,8 @@ public class ShowTruthOrDareDialog {
     private TextView tvLeft, tvRight, tvContent, tvTip, tvPass, tvTitle, tvCenter;
     private String name;
     private Context context;
+    private List<TagBean> quas;
+    private List<TagBean> dos;
     private View.OnClickListener onClickListener;
     private int type;//1-真心话 2-大冒险
 
@@ -29,9 +33,11 @@ public class ShowTruthOrDareDialog {
         init(context);
     }
 
-    public ShowTruthOrDareDialog(Context context, String name) {
+    public ShowTruthOrDareDialog(Context context, String name, List<TagBean> quas, List<TagBean> dos) {
         this.context = context;
         this.name = name;
+        this.quas = quas;
+        this.dos = dos;
         init(context);
     }
 
@@ -109,7 +115,7 @@ public class ShowTruthOrDareDialog {
         tvPass.setOnClickListener(lis -> {
             if (tvPass.getText().toString().equals("换一题")) {
                 //随机刷题
-                tvTip.setText(tvTitle.getText().toString() + getRandom(100));
+                tvTip.setText(type == 1 ? getQua() : getDo());
             }
 
         });
@@ -122,7 +128,7 @@ public class ShowTruthOrDareDialog {
         tvRight.setText("同意");
         tvPass.setText("换一题");
         //随机刷出一道大冒险题
-        tvTip.setText(tvTitle.getText().toString() + getRandom(100));
+        tvTip.setText(type == 1 ? getQua() : getDo());
     }
 
 
@@ -130,6 +136,22 @@ public class ShowTruthOrDareDialog {
         Random random = new Random();
         int s = random.nextInt(num);
         return s;
+    }
+
+    public String getQua() {
+        if (quas == null || quas.size() == 0) {
+            return "";
+        }
+        int temp = getRandom(quas.size());
+        return quas.get(temp).getTag();
+    }
+
+    public String getDo() {
+        if (dos == null || dos.size() == 0) {
+            return "";
+        }
+        int temp = getRandom(dos.size());
+        return dos.get(temp).getTag();
     }
 
     public void setRightBtnClickListener(View.OnClickListener onClickListener) {

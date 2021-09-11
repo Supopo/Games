@@ -2,20 +2,32 @@ package com.xxx.games.truthOrDare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.xxx.games.BR;
 import com.xxx.games.R;
+import com.xxx.games.addPlayer.AddDosActivity;
 import com.xxx.games.addPlayer.AddPlayerActivity;
+import com.xxx.games.addPlayer.AddQuasActivity;
 import com.xxx.games.addPlayer.TagBean;
 import com.xxx.games.databinding.ActivityTruthOrDareBinding;
 import com.xxx.games.widget.ITurntableListener;
 import com.xxx.games.widget.ShowTruthOrDareDialog;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
@@ -29,6 +41,10 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
 
     private TagBean players;
     private ShowTruthOrDareDialog dareDialog;
+    private List<String> quas;
+    private List<String> dos;
+    private TagBean quasAcache;
+    private TagBean dosAcache;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -45,7 +61,78 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
         super.initParam();
         //获取本地存储的数据
         players = (TagBean) ACache.get(this).getAsObject("players");
+        //初始化数据
+        initQua();
+        initDo();
     }
+
+    public void initQua() {
+        quasAcache = (TagBean) ACache.get(this).getAsObject("quas");
+        if (quasAcache != null && quasAcache.getQuado() != null && quasAcache.getQuado().size() > 0) {
+            return;
+        }
+
+        try {
+            InputStream inputStream = getAssets().open("qua.txt");
+            String str = getString(inputStream);
+            quas = Arrays.asList(str.split("\\?"));
+            List<TagBean> temp = new ArrayList<>();
+            for (String qua : quas) {
+                temp.add(new TagBean(qua));
+            }
+            TagBean tagBean = new TagBean();
+            tagBean.setQuado(temp);
+            //储存到本地
+            ACache.get(this).put("quas", tagBean);
+            quasAcache = tagBean;
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public void initDo() {
+        dosAcache = (TagBean) ACache.get(this).getAsObject("dos");
+        if (dosAcache != null && dosAcache.getQuado() != null && dosAcache.getQuado().size() > 0) {
+            return;
+        }
+        try {
+            InputStream inputStream = getAssets().open("do.txt");
+            String str = getString(inputStream);
+            dos = Arrays.asList(str.split("~"));
+            List<TagBean> temp = new ArrayList<>();
+            for (String todo : dos) {
+                temp.add(new TagBean(todo));
+            }
+            TagBean tagBean = new TagBean();
+            tagBean.setQuado(temp);
+            //储存到本地
+            ACache.get(this).put("dos", tagBean);
+            dosAcache = tagBean;
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public static String getString(InputStream inputStream) {
+        InputStreamReader inputStreamReader = null;
+        try {
+            inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        StringBuffer sb = new StringBuffer("");
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
 
     @Override
     public void initData() {
@@ -72,6 +159,12 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
         binding.tvAdd.setOnClickListener(lis -> {
             startActivityForResult(new Intent(TruthOrDareActivity.this, AddPlayerActivity.class), 100);
         });
+        binding.tvAddQua.setOnClickListener(lis -> {
+            startActivityForResult(new Intent(TruthOrDareActivity.this, AddQuasActivity.class), 100);
+        });
+        binding.tvAddDoit.setOnClickListener(lis -> {
+            startActivityForResult(new Intent(TruthOrDareActivity.this, AddDosActivity.class), 100);
+        });
 
         binding.ivNode.setOnClickListener(lis -> {
             binding.turntable.startRotate(new ITurntableListener() {
@@ -81,7 +174,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
 
                 @Override
                 public void onEnd(int position, String name) {
-                    dareDialog = new ShowTruthOrDareDialog(TruthOrDareActivity.this, name);
+                    dareDialog = new ShowTruthOrDareDialog(TruthOrDareActivity.this, name, quasAcache.getQuado(), dosAcache.getQuado());
                     dareDialog.showDialog();
                 }
             });
@@ -100,7 +193,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == 101) {
+        if (resultCode == 101) {
             //重新initViewData
             if (data != null) {
                 TagBean tags = (TagBean) data.getSerializableExtra("tags");
@@ -114,6 +207,22 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
                 }
                 binding.turntable.setDatas(names, colors);
             }
+        } else if (resultCode == 102) {
+            //重新去取
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    quasAcache = (TagBean) ACache.get(TruthOrDareActivity.this).getAsObject("quas");
+                }
+            }, 300);
+        } else if (resultCode == 103) {
+            //重新去取
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dosAcache = (TagBean) ACache.get(TruthOrDareActivity.this).getAsObject("dos");
+                }
+            }, 300);
         }
     }
 }

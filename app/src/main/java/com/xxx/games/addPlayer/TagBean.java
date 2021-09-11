@@ -24,6 +24,16 @@ public class TagBean implements Serializable {
 
     private List<TagBean> tags ;
 
+    public List<TagBean> getQuado() {
+        return quado;
+    }
+
+    public void setQuado(List<TagBean> quado) {
+        this.quado = quado;
+    }
+
+    private List<TagBean> quado ;
+
     public int getPlaceholderRes() {
         return placeholderRes;
     }

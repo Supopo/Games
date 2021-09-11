@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".truthOrDare.TruthOrDareActivity" />
         <activity android:name=".addPlayer.AddPlayerActivity" />
+        <activity android:name=".addPlayer.AddQuasActivity" />
+        <activity android:name=".addPlayer.AddDosActivity" />
     </application>
 
 </manifest>

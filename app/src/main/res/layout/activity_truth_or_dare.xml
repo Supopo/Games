@@ -13,15 +13,48 @@
         tools:context=".truthOrDare.TruthOrDareActivity">
 
         <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:text="返回" />
+
+        <TextView
             android:id="@+id/tv_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
             android:padding="10dp"
             android:textColor="@color/white"
             android:text="添加玩家" />
+
+        <TextView
+            android:id="@+id/tv_add_qua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_add"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:text="添加真心话" />
+
+        <TextView
+            android:id="@+id/tv_add_doit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_add_qua"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:text="添加大冒险" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
