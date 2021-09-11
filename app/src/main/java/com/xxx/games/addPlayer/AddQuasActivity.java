@@ -67,6 +67,10 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
         binding.tvBack.setOnClickListener(lis -> {
             finish();
         });
+        binding.tvClear.setOnClickListener(lis -> {
+            List<TagBean> temp = new ArrayList<>();
+            tagsAdapter.setList(temp);
+        });
 
         binding.btnAdd.setOnClickListener(lis -> {
             if (TextUtils.isEmpty(binding.etTag.getText().toString().trim())) {

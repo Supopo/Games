@@ -67,7 +67,10 @@ public class AddDosActivity extends BaseActivity<ActivityAddDosBinding, BaseView
         binding.tvBack.setOnClickListener(lis -> {
             finish();
         });
-
+        binding.tvClear.setOnClickListener(lis -> {
+            List<TagBean> temp = new ArrayList<>();
+            tagsAdapter.setList(temp);
+        });
         binding.btnAdd.setOnClickListener(lis -> {
             if (TextUtils.isEmpty(binding.etTag.getText().toString().trim())) {
                 return;
