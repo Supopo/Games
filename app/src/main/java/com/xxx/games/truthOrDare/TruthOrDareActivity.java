@@ -156,6 +156,9 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     @Override
     public void initViewObservable() {
         super.initViewObservable();
+        binding.tvBack.setOnClickListener(lis -> {
+            finish();
+        });
         binding.tvAdd.setOnClickListener(lis -> {
             startActivityForResult(new Intent(TruthOrDareActivity.this, AddPlayerActivity.class), 100);
         });

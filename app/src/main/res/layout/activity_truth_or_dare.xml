@@ -7,9 +7,9 @@
     <data></data>
 
     <RelativeLayout
-        android:background="@drawable/bg_or"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_or"
         tools:context=".truthOrDare.TruthOrDareActivity">
 
         <TextView
@@ -17,44 +17,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="40dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
             android:padding="10dp"
-            android:textColor="@color/white"
-            android:text="返回" />
+            android:text="返回"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:text="添加玩家" />
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_pink_sx"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="添加玩家"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_add_qua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_add"
-            android:layout_marginRight="20dp"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:text="添加真心话" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toLeftOf="@id/tv_add"
+            android:background="@drawable/btn_pink_sx"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="添加真心话"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_add_doit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_add_qua"
-            android:layout_marginRight="20dp"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:text="添加大冒险" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@id/tv_add"
+            android:background="@drawable/btn_pink_sx"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="添加大冒险"
+            android:textColor="@color/white" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
