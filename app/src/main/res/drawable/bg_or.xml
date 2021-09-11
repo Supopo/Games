@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+<!-- 中心散射 渐变背景-->
+    <gradient
+        android:startColor="#7A378B"
+        android:endColor="#252525"
+        android:gradientRadius="600"
+        android:type="radial"
+        />
+</shape>

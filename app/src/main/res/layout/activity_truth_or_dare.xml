@@ -7,7 +7,7 @@
     <data></data>
 
     <RelativeLayout
-        android:background="#252525"
+        android:background="@drawable/bg_or"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".truthOrDare.TruthOrDareActivity">

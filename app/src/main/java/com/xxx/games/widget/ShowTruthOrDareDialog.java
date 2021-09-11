@@ -11,15 +11,18 @@ import android.widget.TextView;
 
 import com.xxx.games.R;
 
+import java.util.Random;
+
 /**
  * Created by Supopo. on 2021/9/10.
  */
 public class ShowTruthOrDareDialog {
     private Dialog centerDialog;
-    private TextView tvLeft, tvRight, tvContent;
+    private TextView tvLeft, tvRight, tvContent, tvTip, tvPass, tvTitle, tvCenter;
     private String name;
     private Context context;
     private View.OnClickListener onClickListener;
+    private int type;//1-真心话 2-大冒险
 
     public ShowTruthOrDareDialog(Context context) {
         this.context = context;
@@ -57,19 +60,77 @@ public class ShowTruthOrDareDialog {
         tvLeft = view.findViewById(R.id.tv_left);
         tvRight = view.findViewById(R.id.tv_right);
         tvContent = view.findViewById(R.id.tv_content);
+        tvTitle = view.findViewById(R.id.tv_title);
+        tvTip = view.findViewById(R.id.tv_tip);
+        tvPass = view.findViewById(R.id.tv_pass);
+        tvCenter = view.findViewById(R.id.tv_center);
 
         tvContent.setText(name);
 
         tvLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //刷题
+
+                if (tvLeft.getText().toString().equals("拒绝")) {
+                    tvTitle.setText("拒绝游戏");
+                    tvPass.setVisibility(View.INVISIBLE);
+                    tvTip.setText("自己的选择，跪着也要完成！");
+                    tvContent.setText("喝酒酒吧");
+                    tvContent.setVisibility(View.VISIBLE);
+                    tvLeft.setVisibility(View.GONE);
+                    tvRight.setVisibility(View.GONE);
+                    tvCenter.setVisibility(View.VISIBLE);
+                } else if (tvLeft.getText().toString().equals("大冒险")) {
+                    type = 2;
+                    tvTitle.setText(tvLeft.getText().toString());
+                    selectOr();
+                }
             }
         });
 
+        tvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvRight.getText().toString().equals("同意")) {
+                    //关闭Dialog
+                    dismissDialog();
+                } else if (tvRight.getText().toString().equals("真心话")) {
+                    type = 1;
+                    tvTitle.setText(tvRight.getText().toString());
+                    selectOr();
+                }
+            }
+        });
 
+        tvCenter.setOnClickListener(lis -> {
+            dismissDialog();
+        });
+
+        tvPass.setOnClickListener(lis -> {
+            if (tvPass.getText().toString().equals("换一题")) {
+                //随机刷题
+                tvTip.setText(tvTitle.getText().toString() + getRandom(100));
+            }
+
+        });
     }
 
+    private void selectOr() {
+        tvContent.setVisibility(View.INVISIBLE);
+        tvPass.setVisibility(View.VISIBLE);
+        tvLeft.setText("拒绝");
+        tvRight.setText("同意");
+        tvPass.setText("换一题");
+        //随机刷出一道大冒险题
+        tvTip.setText(tvTitle.getText().toString() + getRandom(100));
+    }
+
+
+    public int getRandom(int num) {
+        Random random = new Random();
+        int s = random.nextInt(num);
+        return s;
+    }
 
     public void setRightBtnClickListener(View.OnClickListener onClickListener) {
         tvRight.setOnClickListener(onClickListener);
