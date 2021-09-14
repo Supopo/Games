@@ -10,4 +10,9 @@
     <color name="red">#99ff8584</color>
     <color name="red2">#ff8584</color>
     <color name="green">#6636B34A</color>
+
+    <color name="google_red">#EA4335</color>
+    <color name="google_yellow">#FBBC05</color>
+    <color name="google_blue">#4285F4</color>
+    <color name="google_green">#34A853</color>
 </resources>
