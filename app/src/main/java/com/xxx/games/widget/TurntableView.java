@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -70,6 +69,7 @@ public class TurntableView extends View {
      * 画笔
      */
     private Paint mPaint = new Paint();
+    private Paint mTextPaint = new Paint();
     /**
      * item颜色
      */
@@ -156,6 +156,7 @@ public class TurntableView extends View {
         mDetector = new GestureDetectorCompat(context, new TurntableGestureListener());
         //抗锯齿
         mPaint.setAntiAlias(true);
+        mTextPaint.setAntiAlias(true);
 
         mScreenHeight = getResources().getDisplayMetrics().heightPixels;
         mScreenWidth = getResources().getDisplayMetrics().widthPixels;
@@ -235,13 +236,20 @@ public class TurntableView extends View {
      * @param canvas
      */
     private void drawBackground(Canvas canvas) {
-        mPaint.setStyle(Paint.Style.FILL);
-        RectF rectF = new RectF(0, 0, mWid, mHei);
+        //设置画笔之描边
+        mPaint.setStyle(Paint.Style.STROKE);
+        //设置实心
+        //        mPaint.setStyle(Paint.Style.FILL);
+        //        RectF rectF = new RectF(0, 0, mWid, mHei);
+        //设置只描边
+        RectF rectF = new RectF(3, 3, mWid - 6, mHei - 6);
 
         float angle = mCurrentAngle;
         for (int i = 0; i < mPanNum; i++) {
             int yushu = i % mColors.size();
             mPaint.setColor(mColors.get(yushu));
+            //设置只描边，加粗描边
+            mPaint.setStrokeWidth(6);
             canvas.drawArc(rectF, angle, mOffsetAngle, true, mPaint);
             angle = angle + mOffsetAngle;
         }
@@ -275,13 +283,13 @@ public class TurntableView extends View {
      * @param canvas
      */
     private void drawText(Canvas canvas) {
-        mPaint.setColor(Color.WHITE);
-        mPaint.setTextAlign(Paint.Align.CENTER);
-        mPaint.setTextSize(mPanNum > 8 ? 30 : 50);
+        mTextPaint.setColor(Color.WHITE);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setTextSize(mPanNum > 8 ? 30 : 50);
         RectF rectF = new RectF(0, 0, mWid, mHei);
 
         //计算text文本的高度
-        Paint.FontMetrics fm = mPaint.getFontMetrics();
+        Paint.FontMetrics fm = mTextPaint.getFontMetrics();
         float textHeight = fm.bottom - fm.top;
 
         float startAngle = mCurrentAngle;
@@ -289,10 +297,11 @@ public class TurntableView extends View {
             //使文本根据，每个item的圆弧路径绘制
             Path path = new Path();
             path.addArc(rectF, startAngle, mOffsetAngle);
-            canvas.drawTextOnPath(mNamesStrs.get(i), path, 0, textHeight + 10, mPaint);
+            canvas.drawTextOnPath(mNamesStrs.get(i), path, 0, textHeight + 10, mTextPaint);
             startAngle = startAngle + mOffsetAngle;
         }
     }
+
 
     /**
      * 让转盘根据rotation值重绘
@@ -335,12 +344,9 @@ public class TurntableView extends View {
         }
         //随机
         int random = getRandom(mPanNum);
-        //判断如果随机数的名字包含i多随即一次
-        LoggerUtil.i("--", "随机到: " + random + "-" + mNamesStrs.get(random));
-        if (mNamesStrs.get(random).contains("i") || mNamesStrs.get(random).contains("o") || mNamesStrs.get(random).contains("u")) {
+        //判断如果随机数的名字包含多随即一次
+        if (mNamesStrs.get(random).contains(" ") || mNamesStrs.get(random).contains("i") || mNamesStrs.get(random).contains("o") || mNamesStrs.get(random).contains("u")) {
             random = getRandom(mPanNum);
-            LoggerUtil.i("--", "又随机到: " + random + "-" + mNamesStrs.get(random));
-
         }
         setScrollToPosition(random);
     }
