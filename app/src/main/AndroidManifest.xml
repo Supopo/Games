@@ -17,9 +17,10 @@
         </activity>
         <activity android:name=".truthOrDare.TruthOrDareActivity" />
         <activity android:name=".addPlayer.AddPlayerActivity" />
-        <activity android:name=".addPlayer.AddQuasActivity" />
-        <activity android:name=".addPlayer.AddDosActivity" />
+        <activity android:name=".truthOrDare.AddQuasActivity" />
+        <activity android:name=".truthOrDare.AddDosActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".angryUncle.AngryUncleActivity" />
     </application>
 
 </manifest>

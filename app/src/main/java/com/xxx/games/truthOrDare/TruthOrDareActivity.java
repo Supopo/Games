@@ -3,16 +3,12 @@ package com.xxx.games.truthOrDare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.addPlayer.AddDosActivity;
 import com.xxx.games.addPlayer.AddPlayerActivity;
-import com.xxx.games.addPlayer.AddQuasActivity;
 import com.xxx.games.addPlayer.TagBean;
 import com.xxx.games.databinding.ActivityTruthOrDareBinding;
 import com.xxx.games.widget.ITurntableListener;
@@ -22,10 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

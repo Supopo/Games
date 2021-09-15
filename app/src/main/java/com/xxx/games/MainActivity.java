@@ -2,6 +2,7 @@ package com.xxx.games;
 
 import android.os.Bundle;
 
+import com.xxx.games.angryUncle.AngryUncleActivity;
 import com.xxx.games.databinding.ActivityMainBinding;
 import com.xxx.games.truthOrDare.TruthOrDareActivity;
 
@@ -32,6 +33,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.initViewObservable();
         binding.btnGame1.setOnClickListener(lis -> {
             startActivity(TruthOrDareActivity.class);
+        });
+        binding.btnGame2.setOnClickListener(lis -> {
+            startActivity(AngryUncleActivity.class);
         });
     }
 }

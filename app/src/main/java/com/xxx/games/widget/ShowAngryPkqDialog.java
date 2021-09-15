@@ -1,0 +1,75 @@
+package com.xxx.games.widget;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.xxx.games.R;
+
+/**
+ * Created by Supopo. on 2021/9/10.
+ */
+public class ShowAngryPkqDialog {
+    private Dialog centerDialog;
+    private TextView tvCenter;
+    private Context context;
+    private View.OnClickListener onClickListener;
+
+    public ShowAngryPkqDialog(Context context) {
+        this.context = context;
+        init(context);
+    }
+
+
+    public void init(Context context) {
+        centerDialog = new Dialog(context, R.style.CustomerDialog);
+        //填充对话框的布局
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_angry_pkq, null);
+        //点击外部不可dismiss
+        centerDialog.setCancelable(false);
+        //将布局设置给Dialog
+        centerDialog.setContentView(view);
+        //获取当前Activity所在的窗体
+        Window dialogWindow = centerDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        dialogWindow.setGravity(Gravity.CENTER);
+        //设置弹出动画
+        //        dialogWindow.setWindowAnimations(R.style.DialogBottomAnimation);
+        //获得窗体的属性
+        WindowManager.LayoutParams params = dialogWindow.getAttributes();
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT;//设置宽高模式，
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;//设置宽高模式，
+        dialogWindow.setAttributes(params);
+
+
+        //初始化控件
+        tvCenter = view.findViewById(R.id.tv_center);
+
+    }
+
+
+    public void setCenterBtnClickListener(View.OnClickListener onClickListener) {
+        tvCenter.setOnClickListener(onClickListener);
+    }
+
+
+    public void showDialog() {
+        if (centerDialog != null && centerDialog.isShowing()) {
+            return;
+        }
+        centerDialog.show();
+
+    }
+
+    public void dismissDialog() {
+        if (centerDialog != null) {
+            centerDialog.dismiss();
+        }
+
+    }
+}

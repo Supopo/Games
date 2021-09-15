@@ -1,4 +1,4 @@
-package com.xxx.games.addPlayer;
+package com.xxx.games.truthOrDare;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.databinding.ActivityAddQuasBinding;
+import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.addPlayer.TagsAdapter;
+import com.xxx.games.databinding.ActivityAddDosBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +26,17 @@ import me.goldze.mvvmhabit.utils.ACache;
 
 /**
  * Created by Supopo. on 2021/9/10.
- * 添加真心话
+ * 添加大冒险
  */
-public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseViewModel> {
+public class AddDosActivity extends BaseActivity<ActivityAddDosBinding, BaseViewModel> {
 
     private TagsAdapter tagsAdapter;
-    private List<TagBean> quas;
-    private TagBean quaCache;
+    private List<TagBean> dos;
+    private TagBean dosCache;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_add_quas;
+        return R.layout.activity_add_dos;
     }
 
     @Override
@@ -46,7 +48,7 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
     public void initParam() {
         super.initParam();
         //获取本地存储的数据
-        quaCache = (TagBean) ACache.get(this).getAsObject("quas");
+        dosCache = (TagBean) ACache.get(this).getAsObject("dos");
     }
 
     @Override
@@ -71,12 +73,11 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
             List<TagBean> temp = new ArrayList<>();
             tagsAdapter.setList(temp);
         });
-
         binding.btnAdd.setOnClickListener(lis -> {
             if (TextUtils.isEmpty(binding.etTag.getText().toString().trim())) {
                 return;
             }
-            quas.add(new TagBean(binding.etTag.getText().toString()));
+            dos.add(new TagBean(binding.etTag.getText().toString()));
             tagsAdapter.addData(new TagBean(binding.etTag.getText().toString()));
             binding.etTag.setText("");
         });
@@ -89,14 +90,14 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
             tagBean.setQuado(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
             //储存到本地
-            ACache.get(this).put("quas", tagBean);
+            ACache.get(this).put("dos", tagBean);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     dismissDialog();
                     //添加真心话
-                    setResult(102, intent);
+                    setResult(103, intent);
                     finish();
                 }
             }, 300);
@@ -109,11 +110,11 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
         binding.rvNames.setAdapter(tagsAdapter);
         binding.rvNames.setLayoutManager(new LinearLayoutManager(this));
 
-        quas = new ArrayList<>();
-        if (quaCache != null && quaCache.getQuado() != null) {
-            quas.addAll(quaCache.getQuado());
+        dos = new ArrayList<>();
+        if (dosCache != null && dosCache.getQuado() != null) {
+            dos.addAll(dosCache.getQuado());
         }
-        tagsAdapter.setList(quas);
+        tagsAdapter.setList(dos);
 
         tagsAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override

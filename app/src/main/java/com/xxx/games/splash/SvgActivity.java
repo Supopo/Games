@@ -40,6 +40,7 @@ public class SvgActivity extends BaseActivity<ActivitySvgBinding, BaseViewModel>
             @Override
             public void run() {
                 startActivity(MainActivity.class);
+                finish();
             }
         }, 2000);
     }

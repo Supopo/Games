@@ -12,22 +12,35 @@
     </data>
 
     <RelativeLayout
-        android:background="#252525"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#252525"
         tools:context=".MainActivity">
 
         <Button
-            android:background="@drawable/btn_pink_sx"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp"
             android:id="@+id/btn_game1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/btn_pink_sx"
             android:padding="15dp"
-            android:textSize="20sp"
+            android:text="真心话大冒险"
             android:textColor="@color/white"
-            android:text="真心话大冒险" />
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_game2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_game1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_pink_sx"
+            android:padding="15dp"
+            android:text="愤怒的皮卡丘"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 </layout>
