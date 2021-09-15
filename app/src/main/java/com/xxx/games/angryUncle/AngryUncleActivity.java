@@ -72,7 +72,7 @@ public class AngryUncleActivity extends BaseActivity<ActivityAngryUncleBinding, 
             resetData();
         });
         binding.tvMenu3.setOnClickListener(lis -> {
-            maxNum = 4 * 3;
+            maxNum = 4 * 3 ;
             resetData();
         });
         binding.tvMenu4.setOnClickListener(lis -> {
