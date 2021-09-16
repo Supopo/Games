@@ -21,6 +21,7 @@
         <activity android:name=".truthOrDare.AddDosActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".angryUncle.AngryUncleActivity" />
+        <activity android:name=".poker.WhoIsActivity" />
     </application>
 
 </manifest>

@@ -112,6 +112,8 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         }
         super.onCreate(savedInstanceState);
 
+        setStatusBarTransparent();
+
         permissions = new RxPermissions(this);
         //页面接受的参数方法
         initParam();

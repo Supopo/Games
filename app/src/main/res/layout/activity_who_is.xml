@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252525">
+
+        <RelativeLayout
+            android:id="@+id/rl_card_bg"
+            android:layout_width="220dp"
+            android:layout_height="340dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/list_card">
+
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:layout_width="220dp"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/poker_blue_back"
+                app:qmui_border_width="0dp"
+                app:qmui_corner_radius="10dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_card_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp">
+
+
+            <RelativeLayout
+                android:visibility="invisible"
+                android:id="@+id/rl_front"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/imageView_front"
+                    android:layout_width="220dp"
+                    android:layout_height="300dp"
+                    android:layout_centerInParent="true"
+                    android:src="@color/white"
+                    app:qmui_border_width="0dp"
+                    app:qmui_corner_radius="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="1号"
+                    android:textColor="#252525"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/imageView_back"
+                android:layout_width="220dp"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/poker_blue_back"
+                app:qmui_border_width="0dp"
+                app:qmui_corner_radius="10dp" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_card_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/btn_pink"
+            android:paddingLeft="40dp"
+            android:paddingTop="15dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="15dp"
+            android:text="抽一张"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</layout>
