@@ -1,21 +1,55 @@
 package com.xxx.games.poker;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.nineoldandroids.view.ViewHelper;
 import com.xxx.games.BR;
 import com.xxx.games.R;
+import com.xxx.games.angryUncle.PicBean;
 import com.xxx.games.databinding.ActivityWhoIsBinding;
+import com.xxx.games.utils.BaseUtils;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.base.BaseViewModel;
+import me.goldze.mvvmhabit.http.interceptor.logging.Logger;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 
 /**
  * Created by Supopo. on 2021/9/16.
  * 谁是卧底
  */
 public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewModel> {
+
+    private Handler handler;
+    private Animation pokerOutAnim;
+    private boolean canClick = true;
+    private PokersAdapter mAdapter;
+    private List<String> words;
+    private int randomWords;
+    private int userNum = 6;
+    private int randomUser;
+    private String[] strings;
+
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_who_is;
@@ -30,21 +64,112 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
     public void initData() {
         super.initData();
         setStatusBarTransparent();
+        handler = new Handler();
+        initWords();
+        initView();
+        initOneWord();
+    }
 
+    private void initOneWord() {
+        randomWords = BaseUtils.getRandom(words.size());
+        String tempWards = words.get(randomWords);
+        Log.v("--", "词语：" + tempWards);
+        strings = tempWards.split("--");
+        randomUser = BaseUtils.getRandom(userNum);
+        Log.v("--", "玩家：" + randomUser);
+    }
+
+    private void initWords() {
+        showDialog();
+        try {
+            InputStream inputStream = getAssets().open("words.txt");
+            String str = getString(inputStream);
+            words = Arrays.asList(str.split(","));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        dismissDialog();
+    }
+
+    public static String getString(InputStream inputStream) {
+        InputStreamReader inputStreamReader = null;
+        try {
+            inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        StringBuffer sb = new StringBuffer("");
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    private void initView() {
         setCameraDistance();
-        binding.imageViewBack.setOnClickListener(lis ->{
-            cardTurnover();
+        binding.tvBack.setOnClickListener(lis -> {
+            finish();
         });
-        binding.rlFront.setOnClickListener(lis ->{
-            cardTurnover();
+        binding.tvMenu1.setOnClickListener(lis -> {
+            pos = 0;
+            binding.tvPass.setVisibility(View.VISIBLE);
+            //重新抽词
+            initOneWord();
+            //清空rv数据
+            mAdapter.setList(new ArrayList<>());
+        });
+
+        binding.tvPass.setOnClickListener(lis -> {
+            if (canClick) {
+                binding.rlCardRoot.setVisibility(View.VISIBLE);
+                cardTurnover();
+            }
+        });
+
+        mAdapter = new PokersAdapter(R.layout.item_poker);
+        binding.rvAll.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.rvAll.setAdapter(mAdapter);
+        mAdapter.setList(new ArrayList<>());
+
+        mAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if ((position) == randomUser) {
+                    Toast.makeText(WhoIsActivity.this,strings[0],Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(WhoIsActivity.this,strings[1],Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
         });
     }
+
+    private int pos;//当前已抽牌人数
 
     /**
      * 翻牌
      */
     public void cardTurnover() {
+
         if (View.VISIBLE == binding.imageViewBack.getVisibility()) {
+            //打开
+            binding.tvPass.setText("下一位");
+            if (pos == randomUser) {
+                binding.tvWord.setText(strings[0]);
+            } else {
+                binding.tvWord.setText(strings[1]);
+            }
+
+            pos++;
+            canClick = false;
+
+            ViewHelper.setTranslationY(binding.rlCardRoot, -50);
             ViewHelper.setRotationY(binding.rlFront, 180f);//先翻转180，转回来时就不是反转的了
             Rotatable rotatable = new Rotatable.Builder(binding.rlCardRoot)
                     .sides(R.id.imageView_back, R.id.rl_front)
@@ -53,14 +178,62 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
                     .build();
             rotatable.setTouchEnable(false);
             rotatable.rotate(Rotatable.ROTATE_Y, -180, 1500);
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    canClick = true;
+                }
+            }, 1500);
         } else if (View.VISIBLE == binding.rlFront.getVisibility()) {
+            //关闭
+            binding.tvPass.setText("抽一张");
+
+            if (pos == userNum) {
+                binding.tvPass.setVisibility(View.INVISIBLE);
+            }
+
+            canClick = false;
             Rotatable rotatable = new Rotatable.Builder(binding.rlCardRoot)
                     .sides(R.id.imageView_back, R.id.rl_front)
                     .direction(Rotatable.ROTATE_Y)
                     .rotationCount(1)
                     .build();
             rotatable.setTouchEnable(false);
-            rotatable.rotate(Rotatable.ROTATE_Y, 0, 1500);
+            rotatable.rotate(Rotatable.ROTATE_Y, 0, 1000);
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    //退场动画
+                    binding.rlCardRoot.clearAnimation();
+                    pokerOutAnim = AnimationUtils.loadAnimation(WhoIsActivity.this, R.anim.poker_out);
+                    binding.rlCardRoot.setAnimation(pokerOutAnim);
+
+                    pokerOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            binding.rlCardRoot.setVisibility(View.INVISIBLE);
+                            ViewHelper.setTranslationY(binding.rlCardRoot, 0);
+                            mAdapter.addData(new PicBean(pos));
+                            binding.rvAll.scrollToPosition(mAdapter.getData().size() - 1);
+                            canClick = true;
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                }
+            }, 1000);
+
         }
     }
 

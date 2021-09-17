@@ -12,14 +12,57 @@
         android:background="#252525">
 
         <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:text="返回"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/tv_menu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/tv_menu1"
+                android:padding="8dp"
+                android:text="人数"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_menu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:text="刷新"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
             android:id="@+id/rl_card_bg"
             android:layout_width="220dp"
-            android:layout_height="340dp"
+            android:layout_height="324dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="150dp"
             android:background="@drawable/list_card">
 
             <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/qiv_back"
                 android:layout_width="220dp"
                 android:layout_height="300dp"
                 android:layout_alignParentTop="true"
@@ -28,38 +71,44 @@
                 app:qmui_corner_radius="10dp" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_mb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#22252525" />
 
         <RelativeLayout
             android:id="@+id/rl_card_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp">
+            android:layout_marginTop="150dp"
+            android:visibility="invisible">
 
 
             <RelativeLayout
-                android:visibility="invisible"
                 android:id="@+id/rl_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                android:visibility="invisible">
 
                 <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                     android:id="@+id/imageView_front"
                     android:layout_width="220dp"
                     android:layout_height="300dp"
                     android:layout_centerInParent="true"
-                    android:src="@color/white"
+                    android:src="@mipmap/poker_blue_empty"
                     app:qmui_border_width="0dp"
                     app:qmui_corner_radius="10dp" />
 
                 <TextView
+                    android:id="@+id/tv_word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="1号"
-                    android:textColor="#252525"
-                    android:textSize="40sp"
+                    android:textColor="#4A8EB3"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -78,11 +127,12 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_card_bg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/btn_pink"
             android:paddingLeft="40dp"
             android:paddingTop="15dp"
@@ -92,5 +142,12 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_all"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:overScrollMode="never" />
     </RelativeLayout>
 </layout>
