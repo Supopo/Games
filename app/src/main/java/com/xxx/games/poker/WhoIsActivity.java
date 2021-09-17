@@ -1,7 +1,11 @@
 package com.xxx.games.poker;
 
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,7 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.nineoldandroids.view.ViewHelper;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xxx.games.BR;
+import com.xxx.games.MainActivity;
 import com.xxx.games.R;
 import com.xxx.games.angryUncle.PicBean;
 import com.xxx.games.databinding.ActivityWhoIsBinding;
@@ -49,6 +56,8 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
     private int userNum = 6;
     private int randomUser;
     private String[] strings;
+    private AssetFileDescriptor rePoker;
+    private MediaPlayer player;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -113,16 +122,51 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
 
     private void initView() {
         setCameraDistance();
+        binding.tvMenu2.setText("人数 " + userNum);
+
+        AssetManager assetManager;
+        assetManager = getResources().getAssets();
+
+        try {
+            rePoker = assetManager.openFd("poker_refresh.mp3");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         binding.tvBack.setOnClickListener(lis -> {
             finish();
         });
+        binding.tvMenu2.setOnClickListener(lis -> {
+            QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(WhoIsActivity.this);
+            builder.setTitle("人数")
+                    .setPlaceholder("在此输入人数")
+                    .setInputType(InputType.TYPE_CLASS_NUMBER)
+                    .addAction("取消", new QMUIDialogAction.ActionListener() {
+                        @Override
+                        public void onClick(QMUIDialog dialog, int index) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .addAction("确定", new QMUIDialogAction.ActionListener() {
+                        @Override
+                        public void onClick(QMUIDialog dialog, int index) {
+                            CharSequence text = builder.getEditText().getText();
+                            if (text != null && text.length() > 0) {
+                                userNum = Integer.parseInt(text.toString());
+                                binding.tvMenu2.setText("人数 " + userNum);
+                                toReset();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "请输入人数", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .show();
+        });
+
         binding.tvMenu1.setOnClickListener(lis -> {
-            pos = 0;
-            binding.tvPass.setVisibility(View.VISIBLE);
-            //重新抽词
-            initOneWord();
-            //清空rv数据
-            mAdapter.setList(new ArrayList<>());
+            toReset();
         });
 
         binding.tvPass.setOnClickListener(lis -> {
@@ -141,13 +185,41 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
             @Override
             public boolean onItemLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                 if ((position) == randomUser) {
-                    Toast.makeText(WhoIsActivity.this,strings[0],Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WhoIsActivity.this, strings[0], Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(WhoIsActivity.this,strings[1],Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WhoIsActivity.this, strings[1], Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
         });
+    }
+
+    private void toReset() {
+
+        try {
+            player = new MediaPlayer();
+            player.setDataSource(rePoker.getFileDescriptor(), rePoker.getStartOffset(), rePoker.getStartOffset());
+            player.prepare();
+            player.start();
+            showDialog("正在洗牌...");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismissDialog();
+            }
+        }, 1000);
+
+        pos = 0;
+        binding.tvPass.setVisibility(View.VISIBLE);
+        //重新抽词
+        initOneWord();
+        //清空rv数据
+        mAdapter.setList(new ArrayList<>());
     }
 
     private int pos;//当前已抽牌人数
