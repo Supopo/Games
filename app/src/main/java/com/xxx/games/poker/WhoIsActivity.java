@@ -82,10 +82,8 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
     private void initOneWord() {
         randomWords = BaseUtils.getRandom(words.size());
         String tempWards = words.get(randomWords);
-        Log.v("--", "词语：" + tempWards);
         strings = tempWards.split("--");
         randomUser = BaseUtils.getRandom(userNum);
-        Log.v("--", "玩家：" + randomUser);
     }
 
     private void initWords() {
@@ -231,7 +229,6 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
 
         if (View.VISIBLE == binding.imageViewBack.getVisibility()) {
             //打开
-            binding.tvPass.setText("下一位");
             if (pos == randomUser) {
                 binding.tvWord.setText(strings[0]);
             } else {
@@ -249,18 +246,17 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
                     .rotationCount(1)
                     .build();
             rotatable.setTouchEnable(false);
-            rotatable.rotate(Rotatable.ROTATE_Y, -180, 1500);
+            rotatable.rotate(Rotatable.ROTATE_Y, -180, 1250);
 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    binding.tvPass.setText("下一位");
                     canClick = true;
                 }
-            }, 1500);
+            }, 1250);
         } else if (View.VISIBLE == binding.rlFront.getVisibility()) {
             //关闭
-            binding.tvPass.setText("抽一张");
-
             if (pos == userNum) {
                 binding.tvPass.setVisibility(View.INVISIBLE);
             }
@@ -296,6 +292,7 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
                             mAdapter.addData(new PicBean(pos));
                             binding.rvAll.scrollToPosition(mAdapter.getData().size() - 1);
                             canClick = true;
+                            binding.tvPass.setText("抽一张");
                         }
 
                         @Override

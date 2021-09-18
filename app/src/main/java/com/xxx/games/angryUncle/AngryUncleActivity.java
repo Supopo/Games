@@ -1,8 +1,5 @@
 package com.xxx.games.angryUncle;
 
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,8 +24,6 @@ import me.goldze.mvvmhabit.base.BaseViewModel;
 public class AngryUncleActivity extends BaseActivity<ActivityAngryUncleBinding, BaseViewModel> {
 
     private PicsAdapter mAdapter;
-    private MediaPlayer player;
-    private AssetFileDescriptor pkqAd1, pkqAd2;
     private int pos;
     private ShowAngryPkqDialog angryPkqDialog;
     private List<PicBean> pics;
@@ -72,7 +67,7 @@ public class AngryUncleActivity extends BaseActivity<ActivityAngryUncleBinding, 
             resetData();
         });
         binding.tvMenu3.setOnClickListener(lis -> {
-            maxNum = 4 * 3 ;
+            maxNum = 4 * 3;
             resetData();
         });
         binding.tvMenu4.setOnClickListener(lis -> {
@@ -86,32 +81,14 @@ public class AngryUncleActivity extends BaseActivity<ActivityAngryUncleBinding, 
 
         resetData();
 
-        AssetManager assetManager;
-        assetManager = getResources().getAssets();
-
-        try {
-            pkqAd1 = assetManager.openFd("angry_pkq.mp3");
-            pkqAd2 = assetManager.openFd("kawayi_pkq.mp3");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         mAdapter.setOnItemClickListener(((adapter, view, position) -> {
-
-            try {
-                player = new MediaPlayer();
-                if (mAdapter.getData().get(position).getPosition() == pos) {
-                    angryPkqDialog.showDialog();
-                    player.setDataSource(pkqAd1.getFileDescriptor(), pkqAd1.getStartOffset(), pkqAd1.getStartOffset());
-                } else {
-                    player.setDataSource(pkqAd2.getFileDescriptor(), pkqAd2.getStartOffset(), pkqAd2.getStartOffset());
-                }
-                player.prepare();
-                player.start();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (angryPkqDialog.isShowing()) {
+                return;
             }
 
+            if (mAdapter.getData().get(position).getPosition() == pos) {
+                angryPkqDialog.showDialog();
+            }
             mAdapter.remove(position);
         }));
 

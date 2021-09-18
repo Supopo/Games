@@ -70,6 +70,12 @@ public class ShowAngryPkqDialog {
         if (centerDialog != null) {
             centerDialog.dismiss();
         }
+    }
 
+    public boolean isShowing() {
+        if (centerDialog != null) {
+            return centerDialog.isShowing();
+        }
+        return false;
     }
 }

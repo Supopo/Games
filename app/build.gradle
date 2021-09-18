@@ -16,6 +16,27 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // 创建一个名为keystorePropertiesFile的变量，并将其初始化为rootProject文件夹中的keystore.properties文件。
+    def keystorePropertiesFile = rootProject.file("keystore.properties")
+    // 初始化一个名为keystoreProperties的新Properties（）对象
+    def keystoreProperties = new Properties()
+    // 将keystore.properties文件加载到keystoreProperties对象中
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+        debug {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
