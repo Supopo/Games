@@ -55,5 +55,18 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/btn_game4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_game3"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_pink_sx"
+            android:padding="15dp"
+            android:text="逛公园"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
     </RelativeLayout>
 </layout>

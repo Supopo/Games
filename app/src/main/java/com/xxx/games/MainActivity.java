@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.xxx.games.angryUncle.AngryUncleActivity;
 import com.xxx.games.databinding.ActivityMainBinding;
+import com.xxx.games.parks.ParksActivity;
 import com.xxx.games.poker.WhoIsActivity;
 import com.xxx.games.truthOrDare.TruthOrDareActivity;
 
@@ -40,6 +41,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         });
         binding.btnGame3.setOnClickListener(lis -> {
             startActivity(WhoIsActivity.class);
+        });
+        binding.btnGame4.setOnClickListener(lis -> {
+            startActivity(ParksActivity.class);
         });
     }
 }

@@ -22,6 +22,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".angryUncle.AngryUncleActivity" />
         <activity android:name=".poker.WhoIsActivity" />
+        <activity android:name=".parks.ParksActivity" />
     </application>
 
 </manifest>
