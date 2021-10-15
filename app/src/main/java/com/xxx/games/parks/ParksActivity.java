@@ -76,7 +76,7 @@ public class ParksActivity extends BaseActivity<ActivityParksBinding, BaseViewMo
         initOneWord();
     }
 
-    private boolean isRandom;
+    private boolean isRandom = true;
 
     private void initOneWord() {
         pos = 0;

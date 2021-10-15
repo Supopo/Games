@@ -38,7 +38,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/tv_menu1"
                 android:padding="8dp"
-                android:text="按序"
+                android:text="随机"
                 android:textColor="@color/white" />
 
             <TextView
