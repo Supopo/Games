@@ -71,7 +71,7 @@ ext {
             //Banner
             "banner"                               : "com.github.pinguo-zhouwei:MZBannerView:v2.0.2",
             //BaseQuickAdapter 最新版本 latest.integration 但是使用这个有些系统库可能下载不下来
-            "adapter"                              : "com.github.CymChad:BaseRecyclerViewAdapterHelper:latest.integration",
+            "adapter"                              : "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6",
             //jxl解析Excel
             "jxl"                                  : "net.sourceforge.jexcelapi:jxl:2.6.12",
             //文件选择
