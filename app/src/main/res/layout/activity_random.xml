@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252525"
+        tools:context=".randomTeam.RandomActivity">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:text="返回"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/tv_menu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/tv_menu1"
+                android:padding="8dp"
+                android:text="队数 x2"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_menu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:padding="8dp"
+                android:text="分队"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_menu3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/tv_menu2"
+
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:text="添加"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_title"
+            android:background="@color/yellow"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="所有人" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rv_names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title1"
+            android:paddingBottom="10dp"
+            android:background="@color/yellow" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_names"
+            android:background="@color/teal_200"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="队伍1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rv_team1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title2"
+            android:paddingBottom="10dp"
+            android:background="@color/teal_200" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_title3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_team1"
+            android:background="@color/purple_200"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="队伍2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rv_team2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title3"
+            android:paddingBottom="10dp"
+            android:background="@color/purple_200" />
+
+
+    </RelativeLayout>
+</layout>

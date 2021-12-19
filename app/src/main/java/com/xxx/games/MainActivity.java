@@ -7,6 +7,7 @@ import com.xxx.games.databinding.ActivityMainBinding;
 import com.xxx.games.mahjong.MahjongActivity;
 import com.xxx.games.parks.ParksActivity;
 import com.xxx.games.poker.WhoIsActivity;
+import com.xxx.games.randomTeam.RandomActivity;
 import com.xxx.games.truthOrDare.TruthOrDareActivity;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
@@ -48,6 +49,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         });
         binding.btnGame5.setOnClickListener(lis -> {
             startActivity(MahjongActivity.class);
+        });
+        binding.btnGame6.setOnClickListener(lis -> {
+            startActivity(RandomActivity.class);
         });
     }
 }
