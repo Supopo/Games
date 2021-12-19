@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_marginTop="20dp"
-            android:layout_below="@id/btn_game2"
+            android:layout_below="@id/btn_game5"
             android:layout_marginLeft="20dp"
             android:background="@drawable/btn_pink_sx"
             android:padding="15dp"
