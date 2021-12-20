@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +20,6 @@ import com.nineoldandroids.view.ViewHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xxx.games.BR;
-import com.xxx.games.MainActivity;
 import com.xxx.games.R;
 import com.xxx.games.angryUncle.PicBean;
 import com.xxx.games.databinding.ActivityWhoIsBinding;
@@ -38,8 +36,6 @@ import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.base.BaseViewModel;
-import me.goldze.mvvmhabit.http.interceptor.logging.Logger;
-import me.goldze.mvvmhabit.utils.ToastUtils;
 
 /**
  * Created by Supopo. on 2021/9/16.

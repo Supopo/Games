@@ -69,6 +69,20 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/btn_game7"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/btn_game5"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/btn_pink_sx"
+            android:padding="15dp"
+            android:text="随机英雄"
+            android:layout_toRightOf="@id/btn_game6"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
             android:id="@+id/btn_game3"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
