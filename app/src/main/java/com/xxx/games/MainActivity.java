@@ -14,7 +14,7 @@ import com.xxx.games.truthOrDare.TruthOrDareActivity;
 import me.goldze.mvvmhabit.base.BaseActivity;
 
 /**
- * Created by Supopo. on 2021/9/10. xxx
+ * Created by Supopo. on 2021/9/10.a
  */
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
     @Override
