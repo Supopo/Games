@@ -1,15 +1,15 @@
 ext {
     //android开发版本配置
     android = [
-            compileSdkVersion  : 29,
-            buildToolsVersion  : "29.0.2",
-            applicationId      : "com.xxx.xxx",
+            compileSdkVersion  : 30,
+            buildToolsVersion  : "30.0.3",
+            applicationId      : "com.xxx.games",
             minSdkVersion      : 23,
-            targetSdkVersion   : 29,
+            targetSdkVersion   : 30,
             versionCode        : 1,
             versionName        : "1.0",
-            sourceCompatibility: 1.8,
-            targetCompatibility: 1.8,
+            sourceCompatibility: JavaVersion.VERSION_1_8,
+            targetCompatibility: JavaVersion.VERSION_1_8,
     ]
     //version配置
     versions = [
@@ -27,8 +27,8 @@ ext {
             'design'                  : "com.android.support:design:${versions["support-version"]}",
             'animated-vector-drawable': "com.android.support:animated-vector-drawable:${versions["support-version"]}",
             'junit'                   : "junit:junit:${versions["junit-version"]}",
-            'runner'                   : "androidx.test:runner:1.2.0",
-            'espresso'                   : "androidx.test.espresso:espresso-core:3.2.0",
+            'runner'                  : "androidx.test:runner:1.2.0",
+            'espresso'                : "androidx.test.espresso:espresso-core:3.2.0",
     ]
     //依赖第三方配置
     dependencies = [
@@ -75,7 +75,11 @@ ext {
             //jxl解析Excel
             "jxl"                                  : "net.sourceforge.jexcelapi:jxl:2.6.12",
             //文件选择
-            "lfilepicker"                                  : "com.leon:lfilepickerlibrary:1.8.0",
+            "lfilepicker"                          : "com.leon:lfilepickerlibrary:1.8.0",
+            //svg动画
+            "svg"                                  : "com.jaredrummler:animated-svg-view:1.0.6",
+            //mmkv数据缓存
+            "mmkv"                                 : "com.tencent:mmkv:1.2.13",
     ]
 }
 
