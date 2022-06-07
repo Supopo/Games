@@ -48,7 +48,7 @@ public class AddDosActivity extends BaseActivity<ActivityAddDosBinding, BaseView
     public void initParam() {
         super.initParam();
         //获取本地存储的数据
-        dosCache = (TagBean) ACache.get(this).getAsObject("dos");
+        dosCache = mmkv.decodeParcelable("dos", TagBean.class);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class AddDosActivity extends BaseActivity<ActivityAddDosBinding, BaseView
             tagBean.setQuado(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
             //储存到本地
-            ACache.get(this).put("dos", tagBean);
+            mmkv.encode("dos", tagBean);
 
             new Handler().postDelayed(new Runnable() {
                 @Override

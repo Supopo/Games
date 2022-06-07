@@ -57,7 +57,9 @@ public class RandomActivity extends BaseActivity<ActivityRandomBinding, BaseView
     public void initData() {
         super.initData();
         //初始化所有人
-        initNames(players.getTags());
+        if (players != null) {
+            initNames(players.getTags());
+        }
 
         team1Adapter = new NamesAdapter(R.layout.item_name);
         team2Adapter = new NamesAdapter(R.layout.item_name);
@@ -117,7 +119,7 @@ public class RandomActivity extends BaseActivity<ActivityRandomBinding, BaseView
         if (resultCode == 101) {
             //重新initViewData
             if (data != null) {
-                TagBean tags = (TagBean) data.getSerializableExtra("tags");
+                TagBean tags = (TagBean) data.getParcelableExtra("tags");
                 initNames(tags.getTags());
             }
         }

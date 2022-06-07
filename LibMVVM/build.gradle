@@ -81,6 +81,8 @@ dependencies {
     api rootProject.ext.dependencies.qmui
     //BaseQuickAdapter
     api rootProject.ext.dependencies.adapter
+    api rootProject.ext.dependencies.mmkv
+
 
 
 }

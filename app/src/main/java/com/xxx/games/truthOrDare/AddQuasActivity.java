@@ -48,7 +48,7 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
     public void initParam() {
         super.initParam();
         //获取本地存储的数据
-        quaCache = (TagBean) ACache.get(this).getAsObject("quas");
+        quaCache = mmkv.decodeParcelable("quas", TagBean.class);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
             tagBean.setQuado(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
             //储存到本地
-            ACache.get(this).put("quas", tagBean);
+            mmkv.encode("quas", tagBean);
 
             new Handler().postDelayed(new Runnable() {
                 @Override

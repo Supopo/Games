@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.mmkv.MMKV;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.lang.reflect.Field;
@@ -61,6 +62,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     public TextView tvTitle, tvRight;
     public ImageView ivLeft, ivRight;
     public RxPermissions permissions;
+    public MMKV mmkv;
 
 
     //解决 8.0系统 设置竖屏和透明状态栏 冲突问题
@@ -111,10 +113,12 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
             boolean result = fixOrientation();
         }
         super.onCreate(savedInstanceState);
-
+        //设置透明状态栏
         setStatusBarTransparent();
-
+        //实例化权限
         permissions = new RxPermissions(this);
+        //实例化MMKV
+        mmkv = MMKV.defaultMMKV();
         //页面接受的参数方法
         initParam();
         //私有的初始化Databinding和ViewModel方法

@@ -3,14 +3,18 @@ package com.xxx.games.truthOrDare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
 
+import com.tencent.mmkv.MMKV;
 import com.xxx.games.BR;
 import com.xxx.games.R;
 import com.xxx.games.addPlayer.AddPlayerActivity;
 import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.app.Constant;
 import com.xxx.games.databinding.ActivityTruthOrDareBinding;
+import com.xxx.games.utils.FileUtils;
 import com.xxx.games.widget.ITurntableListener;
 import com.xxx.games.widget.ShowTruthOrDareDialog;
 
@@ -53,21 +57,22 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     public void initParam() {
         super.initParam();
         //获取本地存储的数据
-        players = (TagBean) ACache.get(this).getAsObject("players");
+        players = mmkv.decodeParcelable(Constant.MMKV_KEY_PLAYERS, TagBean.class);
         //初始化数据
         initQua();
         initDo();
     }
 
     public void initQua() {
-        quasAcache = (TagBean) ACache.get(this).getAsObject("quas");
+        quasAcache = mmkv.decodeParcelable(Constant.MMKV_KEY_QUAS, TagBean.class);
+
+
         if (quasAcache != null && quasAcache.getQuado() != null && quasAcache.getQuado().size() > 0) {
             return;
         }
 
         try {
-            InputStream inputStream = getAssets().open("qua.txt");
-            String str = getString(inputStream);
+            String str = FileUtils.file2String("qua.txt");
             quas = Arrays.asList(str.split("\\?"));
             List<TagBean> temp = new ArrayList<>();
             for (String qua : quas) {
@@ -76,7 +81,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
             TagBean tagBean = new TagBean();
             tagBean.setQuado(temp);
             //储存到本地
-            ACache.get(this).put("quas", tagBean);
+            mmkv.encode("quas", tagBean);
             quasAcache = tagBean;
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -84,13 +89,13 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     }
 
     public void initDo() {
-        dosAcache = (TagBean) ACache.get(this).getAsObject("dos");
+        dosAcache = mmkv.decodeParcelable(Constant.MMKV_KEY_DOS, TagBean.class);
+
         if (dosAcache != null && dosAcache.getQuado() != null && dosAcache.getQuado().size() > 0) {
             return;
         }
         try {
-            InputStream inputStream = getAssets().open("do.txt");
-            String str = getString(inputStream);
+            String str = FileUtils.file2String("do.txt");
             dos = Arrays.asList(str.split("~"));
             List<TagBean> temp = new ArrayList<>();
             for (String todo : dos) {
@@ -99,33 +104,12 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
             TagBean tagBean = new TagBean();
             tagBean.setQuado(temp);
             //储存到本地
-            ACache.get(this).put("dos", tagBean);
+            mmkv.encode("dos", tagBean);
             dosAcache = tagBean;
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
-
-    public static String getString(InputStream inputStream) {
-        InputStreamReader inputStreamReader = null;
-        try {
-            inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        }
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-        StringBuffer sb = new StringBuffer("");
-        String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
-    }
-
 
     @Override
     public void initData() {
@@ -178,7 +162,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     }
 
     private void initViewData() {
-        int num = 8;
+        int num = 6;
         ArrayList<String> names = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             names.add((i + 1) + "号玩家");
@@ -192,7 +176,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
         if (resultCode == 101) {
             //重新initViewData
             if (data != null) {
-                TagBean tags = (TagBean) data.getSerializableExtra("tags");
+                TagBean tags = (TagBean) data.getParcelableExtra("tags");
                 ArrayList<String> names = new ArrayList<>();
                 ArrayList<Integer> colors = new ArrayList<>();
                 if (tags != null && tags.getTags() != null) {
@@ -208,17 +192,17 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    quasAcache = (TagBean) ACache.get(TruthOrDareActivity.this).getAsObject("quas");
+                    quasAcache = mmkv.decodeParcelable(Constant.MMKV_KEY_QUAS, TagBean.class);
                 }
-            }, 300);
+            }, 200);
         } else if (resultCode == 103) {
             //重新去取
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    dosAcache = (TagBean) ACache.get(TruthOrDareActivity.this).getAsObject("dos");
+                    dosAcache = mmkv.decodeParcelable(Constant.MMKV_KEY_DOS, TagBean.class);
                 }
-            }, 300);
+            }, 200);
         }
     }
 }

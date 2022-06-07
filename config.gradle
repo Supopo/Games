@@ -80,6 +80,8 @@ ext {
             "svg"                                  : "com.jaredrummler:animated-svg-view:1.0.6",
             //mmkv数据缓存
             "mmkv"                                 : "com.tencent:mmkv:1.2.13",
+            //动画大全
+            "nineoldandroids"                                  : "com.nineoldandroids:library:2.4.0+",
     ]
 }
 

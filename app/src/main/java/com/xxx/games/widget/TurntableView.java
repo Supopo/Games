@@ -239,10 +239,10 @@ public class TurntableView extends View {
         //设置画笔之描边
         mPaint.setStyle(Paint.Style.STROKE);
         //设置实心
-        //        mPaint.setStyle(Paint.Style.FILL);
-        //        RectF rectF = new RectF(0, 0, mWid, mHei);
+                mPaint.setStyle(Paint.Style.FILL);
+                RectF rectF = new RectF(0, 0, mWid, mHei);
         //设置只描边
-        RectF rectF = new RectF(3, 3, mWid - 6, mHei - 6);
+//        RectF rectF = new RectF(3, 3, mWid - 6, mHei - 6);
 
         float angle = mCurrentAngle;
         for (int i = 0; i < mPanNum; i++) {
@@ -561,10 +561,10 @@ public class TurntableView extends View {
      */
     public void setDatas(int num, ArrayList<String> names, ArrayList<Bitmap> bitmaps) {
         //转盘转动时候不能修改值
-        if (isDrawingLottery) {
+        if (isDrawingLottery || names == null) {
             return;
         }
-        if (names != null && bitmaps != null && num > 1 && names.size() == num && bitmaps.size() == num) {
+        if (bitmaps != null && num > 1 && names.size() == num && bitmaps.size() == num) {
             mPanNum = num;
             mOffsetAngle = (float) 360 / (float) mPanNum;
             mNamesStrs.clear();
@@ -577,26 +577,34 @@ public class TurntableView extends View {
 
     public void setDatas(ArrayList<String> names, ArrayList<Integer> colors) {
         //转盘转动时候不能修改值
-        if (isDrawingLottery) {
+        if (isDrawingLottery || names == null) {
             return;
         }
-        if (names != null && names.size() > 1) {
-            mPanNum = names.size();
-            mOffsetAngle = (float) 360 / (float) mPanNum;
-            mNamesStrs.clear();
-            mNamesStrs.addAll(names);
-            mColors.clear();
-            mColors.addAll(colors);
-            invalidate();
+
+        if (names.size() < 3) {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.addAll(names);
+            names.addAll(temp);
+            names.addAll(temp);
+        } else if (names.size() < 4) {
+            names.addAll(names);
         }
+
+        mPanNum = names.size();
+        mOffsetAngle = (float) 360 / (float) mPanNum;
+        mNamesStrs.clear();
+        mNamesStrs.addAll(names);
+        mColors.clear();
+        mColors.addAll(colors);
+        invalidate();
     }
 
     public void setDatas(int num, ArrayList<String> names) {
         //转盘转动时候不能修改值
-        if (isDrawingLottery) {
+        if (isDrawingLottery || names == null) {
             return;
         }
-        if (names != null && num > 1 && names.size() == num) {
+        if (num > 1 && names.size() == num) {
             mPanNum = num;
             mOffsetAngle = (float) 360 / (float) mPanNum;
             mNamesStrs.clear();

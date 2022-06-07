@@ -10,20 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.xxx.games.BR;
 import com.xxx.games.R;
 import com.xxx.games.databinding.ActivityAddPlayerBinding;
-import com.xxx.games.utils.LoggerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.base.BaseViewModel;
-import me.goldze.mvvmhabit.utils.ACache;
-import me.goldze.mvvmhabit.widget.AutoLineLayoutManager;
 
 /**
  * Created by Supopo. on 2021/9/10.
@@ -49,7 +45,7 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
     public void initParam() {
         super.initParam();
         //获取本地存储的数据
-        players = (TagBean) ACache.get(this).getAsObject("players");
+        players = mmkv.decodeParcelable("players", TagBean.class);
     }
 
     @Override
@@ -91,7 +87,7 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
             tagBean.setTags(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
             //储存到本地
-            ACache.get(this).put("players", tagBean);
+            mmkv.encode("players", tagBean);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
