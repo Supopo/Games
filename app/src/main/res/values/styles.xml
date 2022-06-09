@@ -7,7 +7,10 @@
 
 
     <style name="SplashTheme" parent="QMUI.Compat.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
 
 

@@ -33,7 +33,7 @@ public class SvgActivity extends BaseActivity<ActivitySvgBinding, BaseViewModel>
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
+        setFullScreen();
         setSvg(ModelSVG.values()[4]);
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {

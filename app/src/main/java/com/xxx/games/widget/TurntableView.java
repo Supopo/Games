@@ -239,17 +239,17 @@ public class TurntableView extends View {
         //设置画笔之描边
         mPaint.setStyle(Paint.Style.STROKE);
         //设置实心
-                mPaint.setStyle(Paint.Style.FILL);
-                RectF rectF = new RectF(0, 0, mWid, mHei);
-        //设置只描边
-//        RectF rectF = new RectF(3, 3, mWid - 6, mHei - 6);
+//                mPaint.setStyle(Paint.Style.FILL);
+        //设置只描边 朝里缩3个像素
+        RectF rectF = new RectF(3, 3, mWid - 6, mHei - 6);
 
         float angle = mCurrentAngle;
         for (int i = 0; i < mPanNum; i++) {
-            int yushu = i % mColors.size();
-            mPaint.setColor(mColors.get(yushu));
+            int remainder = i % mColors.size();
+//            mPaint.setColor(mColors.get(remainder));
+            mPaint.setColor(getResources().getColor(R.color.pink));
             //设置只描边，加粗描边
-            mPaint.setStrokeWidth(6);
+            mPaint.setStrokeWidth(3);
             canvas.drawArc(rectF, angle, mOffsetAngle, true, mPaint);
             angle = angle + mOffsetAngle;
         }

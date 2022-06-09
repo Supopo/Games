@@ -14,7 +14,8 @@
         <activity android:name=".randomHero.RandomHeroActivity"/>
         <activity android:name=".randomTeam.RandomActivity" />
         <activity android:name=".mahjong.MahjongActivity" />
-        <activity android:name=".splash.SvgActivity">
+        <activity android:name=".splash.SvgActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
