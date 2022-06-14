@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.xxx.games.BR;
 import com.xxx.games.R;
 import com.xxx.games.addPlayer.TagBean;
-import com.xxx.games.addPlayer.TagsAdapter;
 import com.xxx.games.databinding.ActivityAddDosBinding;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.base.BaseViewModel;
-import me.goldze.mvvmhabit.utils.ACache;
 
 /**
  * Created by Supopo. on 2021/9/10.

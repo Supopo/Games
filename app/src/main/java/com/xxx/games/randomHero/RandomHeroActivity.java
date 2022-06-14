@@ -92,6 +92,9 @@ public class RandomHeroActivity extends BaseActivity<ActivityRandomHeroBinding, 
     @Override
     public void initData() {
         super.initData();
+        binding.tvBack.setOnClickListener(lis ->{
+            finish();
+        });
         binding.tvMenu2.setOnClickListener(lis -> {
             if (count == 1) {
                 count = 2;

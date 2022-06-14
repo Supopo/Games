@@ -1,9 +1,10 @@
-package com.xxx.games.addPlayer;
+package com.xxx.games.truthOrDare;
 
 import androidx.databinding.DataBindingUtil;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.xxx.games.addPlayer.TagBean;
 import com.xxx.games.databinding.ItemTagsBinding;
 
 import me.goldze.mvvmhabit.utils.ColorsUtils;

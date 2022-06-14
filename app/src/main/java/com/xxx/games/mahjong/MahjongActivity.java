@@ -1,17 +1,11 @@
 package com.xxx.games.mahjong;
 
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.addPlayer.TagBean;
-import com.xxx.games.addPlayer.TagsAdapter;
 import com.xxx.games.databinding.ActivityMahjongBinding;
 
 import java.util.ArrayList;
