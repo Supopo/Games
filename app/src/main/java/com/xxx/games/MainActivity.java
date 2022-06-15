@@ -3,6 +3,7 @@ package com.xxx.games;
 import android.os.Bundle;
 
 import com.xxx.games.angryUncle.AngryUncleActivity;
+import com.xxx.games.call.CallActivity;
 import com.xxx.games.databinding.ActivityMainBinding;
 import com.xxx.games.mahjong.MahjongActivity;
 import com.xxx.games.parks.ParksActivity;
@@ -30,7 +31,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
     }
 
     @Override
@@ -55,7 +55,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startActivity(RandomActivity.class);
         });
         binding.btnGame7.setOnClickListener(lis -> {
-            startActivity(RandomHeroActivity.class);
+//            startActivity(RandomHeroActivity.class);
+            startActivity(CallActivity.class);
         });
     }
 }

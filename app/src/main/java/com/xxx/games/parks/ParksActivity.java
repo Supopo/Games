@@ -69,7 +69,6 @@ public class ParksActivity extends BaseActivity<ActivityParksBinding, BaseViewMo
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
         handler = new Handler();
         initWords();
         initView();

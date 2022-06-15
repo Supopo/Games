@@ -4,17 +4,19 @@
 
     <application
         android:name=".app.MApplication"
-        android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".randomHero.RandomHeroActivity"/>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".randomHero.RandomHeroActivity" />
         <activity android:name=".randomTeam.RandomActivity" />
         <activity android:name=".mahjong.MahjongActivity" />
-        <activity android:name=".splash.SvgActivity"
+        <activity
+            android:name=".splash.SvgActivity"
+            android:screenOrientation="fullSensor"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +24,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".truthOrDare.TruthOrDareActivity" />
-        <activity android:name=".addPlayer.AddPlayerActivity" />
-        <activity android:name=".truthOrDare.AddQuasActivity" />
-        <activity android:name=".truthOrDare.AddDosActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".angryUncle.AngryUncleActivity" />
-        <activity android:name=".poker.WhoIsActivity" />
-        <activity android:name=".parks.ParksActivity" />
+        <activity
+            android:name=".truthOrDare.TruthOrDareActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".addPlayer.AddPlayerActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".truthOrDare.AddQuasActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".truthOrDare.AddDosActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".angryUncle.AngryUncleActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".poker.WhoIsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".parks.ParksActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".call.CallActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

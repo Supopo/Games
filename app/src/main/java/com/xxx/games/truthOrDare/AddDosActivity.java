@@ -52,9 +52,6 @@ public class AddDosActivity extends BaseActivity<ActivityAddDosBinding, BaseView
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
-
-
         showDialog("加载中...");
         new Handler().postDelayed(new Runnable() {
             @Override

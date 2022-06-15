@@ -43,7 +43,6 @@ public class AngryUncleActivity extends BaseActivity<ActivityAngryUncleBinding, 
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
         angryPkqDialog = new ShowAngryPkqDialog(this);
         angryPkqDialog.setCenterBtnClickListener(new View.OnClickListener() {
             @Override

@@ -114,8 +114,6 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
-
         if (players != null && players.getTags() != null) {
             ArrayList<String> names = new ArrayList<>();
             ArrayList<Integer> colors = new ArrayList<>();

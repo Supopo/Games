@@ -68,7 +68,6 @@ public class WhoIsActivity extends BaseActivity<ActivityWhoIsBinding, BaseViewMo
     @Override
     public void initData() {
         super.initData();
-        setStatusBarTransparent();
         handler = new Handler();
         initWords();
         initView();
