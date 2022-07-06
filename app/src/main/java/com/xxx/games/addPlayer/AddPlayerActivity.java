@@ -87,17 +87,8 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
             intent.putExtra("tags", tagBean);
             //储存到本地
             mmkv.encode("players", tagBean);
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dismissDialog();
-                    //添加真心话
-                    setResult(102, intent);
-                    finish();
-                }
-            }, 300);
             setResult(101, intent);
+
             finish();
         });
     }

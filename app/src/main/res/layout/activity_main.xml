@@ -51,6 +51,20 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_menu5"
             android:padding="15dp"
+            android:text="打Call"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_game8"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_below="@id/btn_game2"
+            android:layout_toRightOf="@id/btn_game5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_menu5"
+            android:padding="15dp"
             android:text="记牌器"
             android:textColor="@color/white"
             android:textSize="20sp" />

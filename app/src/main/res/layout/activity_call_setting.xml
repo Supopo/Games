@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252525">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:text="返回"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/tv_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:text="保存"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_menu1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/rl_title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_pink"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="14dp"
+            android:text="文本内容"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/tv_menu1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/tv_menu1"
+            android:background="@drawable/btn_pink"
+            android:hint="请输入内容"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_menu2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_menu1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_pink"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="14dp"
+            android:text="展示速度"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+</layout>

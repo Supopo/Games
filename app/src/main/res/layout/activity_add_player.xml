@@ -28,13 +28,14 @@
                 android:textColor="@color/white"
                 android:padding="8dp"
                 android:text="返回" />
+
             <TextView
                 android:id="@+id/tv_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/tv_save"
-                android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/tv_save"
                 android:padding="8dp"
                 android:text="清空"
                 android:textColor="@color/white" />

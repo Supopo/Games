@@ -25,32 +25,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".truthOrDare.TruthOrDareActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".truthOrDare.TruthOrDareActivity" />
         <activity
-            android:name=".addPlayer.AddPlayerActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".addPlayer.AddPlayerActivity" />
         <activity
-            android:name=".truthOrDare.AddQuasActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".truthOrDare.AddQuasActivity" />
         <activity
-            android:name=".truthOrDare.AddDosActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".truthOrDare.AddDosActivity" />
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".MainActivity" />
         <activity
-            android:name=".angryUncle.AngryUncleActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".angryUncle.AngryUncleActivity" />
         <activity
-            android:name=".poker.WhoIsActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".poker.WhoIsActivity" />
         <activity
-            android:name=".parks.ParksActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".parks.ParksActivity" />
         <activity
             android:name=".call.CallActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".call.CallSettingActivity" />
     </application>
 
 </manifest>

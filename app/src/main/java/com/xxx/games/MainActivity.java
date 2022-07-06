@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.xxx.games.angryUncle.AngryUncleActivity;
 import com.xxx.games.call.CallActivity;
+import com.xxx.games.call.CallSettingActivity;
 import com.xxx.games.databinding.ActivityMainBinding;
 import com.xxx.games.mahjong.MahjongActivity;
 import com.xxx.games.parks.ParksActivity;
@@ -49,14 +50,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startActivity(ParksActivity.class);
         });
         binding.btnGame5.setOnClickListener(lis -> {
-            startActivity(MahjongActivity.class);
+            startActivity(CallSettingActivity.class);
         });
         binding.btnGame6.setOnClickListener(lis -> {
             startActivity(RandomActivity.class);
         });
         binding.btnGame7.setOnClickListener(lis -> {
-//            startActivity(RandomHeroActivity.class);
-            startActivity(CallActivity.class);
+            startActivity(RandomHeroActivity.class);
+        });
+        binding.btnGame8.setOnClickListener(lis -> {
+            startActivity(MahjongActivity.class);
         });
     }
 }

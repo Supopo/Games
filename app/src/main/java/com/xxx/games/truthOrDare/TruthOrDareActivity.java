@@ -114,7 +114,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     @Override
     public void initData() {
         super.initData();
-        if (players != null && players.getTags() != null) {
+        if (players != null && players.getTags() != null && players.getTags().size() > 0) {
             ArrayList<String> names = new ArrayList<>();
             ArrayList<Integer> colors = new ArrayList<>();
             for (TagBean tag : players.getTags()) {
@@ -172,21 +172,15 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 101) {
-            //重新initViewData
+            //重新加载转盘
             if (data != null) {
-                TagBean tags = (TagBean) data.getParcelableExtra("tags");
-                ArrayList<String> names = new ArrayList<>();
-                ArrayList<Integer> colors = new ArrayList<>();
-                if (tags != null && tags.getTags() != null) {
-                    for (TagBean tag : tags.getTags()) {
-                        names.add(tag.getTag());
-                        colors.add(tag.getPlaceholderRes());
-                    }
-                }
-                binding.turntable.setDatas(names, colors);
+                players = (TagBean) data.getParcelableExtra("tags");
+            } else {
+                players = null;
             }
+            initData();
         } else if (resultCode == 102) {
-            //重新去取
+            //重新去取真心话
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -194,7 +188,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
                 }
             }, 200);
         } else if (resultCode == 103) {
-            //重新去取
+            //重新去取大冒险
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
