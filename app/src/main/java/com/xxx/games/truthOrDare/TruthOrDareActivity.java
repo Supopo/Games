@@ -42,6 +42,7 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     private List<String> dos;
     private TagBean quasAcache;
     private TagBean dosAcache;
+    private int num;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -148,6 +149,8 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
             binding.turntable.startRotate(new ITurntableListener() {
                 @Override
                 public void onStart() {
+                    num++;
+                    binding.tvNum.setText(String.valueOf(num));
                 }
 
                 @Override
@@ -171,30 +174,20 @@ public class TruthOrDareActivity extends BaseActivity<ActivityTruthOrDareBinding
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 101) {
-            //重新加载转盘
-            if (data != null) {
+
+        if (data != null) {
+            if (resultCode == 101) {
+                //重新加载转盘
                 players = (TagBean) data.getParcelableExtra("tags");
-            } else {
-                players = null;
+                initData();
+            } else if (resultCode == 102) {
+                //重新去取真心话
+                quasAcache = (TagBean) data.getParcelableExtra("tags");
+            } else if (resultCode == 103) {
+                //重新去取大冒险
+                dosAcache = (TagBean) data.getParcelableExtra("tags");
             }
-            initData();
-        } else if (resultCode == 102) {
-            //重新去取真心话
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    quasAcache = mmkv.decodeParcelable(Constant.MMKV_KEY_QUAS, TagBean.class);
-                }
-            }, 200);
-        } else if (resultCode == 103) {
-            //重新去取大冒险
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dosAcache = mmkv.decodeParcelable(Constant.MMKV_KEY_DOS, TagBean.class);
-                }
-            }, 200);
         }
+
     }
 }

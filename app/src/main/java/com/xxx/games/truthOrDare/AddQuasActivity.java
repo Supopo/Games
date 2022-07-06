@@ -85,18 +85,11 @@ public class AddQuasActivity extends BaseActivity<ActivityAddQuasBinding, BaseVi
             TagBean tagBean = new TagBean();
             tagBean.setQuado(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
-            //储存到本地
             mmkv.encode("quas", tagBean);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dismissDialog();
-                    //添加真心话
-                    setResult(102, intent);
-                    finish();
-                }
-            }, 300);
+            dismissDialog();
+            setResult(102, intent);
+            finish();
 
         });
     }

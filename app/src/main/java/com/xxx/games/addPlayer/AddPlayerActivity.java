@@ -85,10 +85,10 @@ public class AddPlayerActivity extends BaseActivity<ActivityAddPlayerBinding, Ba
             TagBean tagBean = new TagBean();
             tagBean.setTags(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
-            //储存到本地
             mmkv.encode("players", tagBean);
-            setResult(101, intent);
 
+            dismissDialog();
+            setResult(101, intent);
             finish();
         });
     }

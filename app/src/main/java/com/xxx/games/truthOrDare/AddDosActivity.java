@@ -84,18 +84,11 @@ public class AddDosActivity extends BaseActivity<ActivityAddDosBinding, BaseView
             TagBean tagBean = new TagBean();
             tagBean.setQuado(tagsAdapter.getData());
             intent.putExtra("tags", tagBean);
-            //储存到本地
             mmkv.encode("dos", tagBean);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dismissDialog();
-                    //添加真心话
-                    setResult(103, intent);
-                    finish();
-                }
-            }, 300);
+            dismissDialog();
+            setResult(103, intent);
+            finish();
 
         });
     }
