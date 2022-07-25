@@ -71,6 +71,8 @@ dependencies {
     api rootProject.ext.dependencies.nineoldandroids
     api rootProject.ext.dependencies.mmkv
 
+    implementation 'com.pangle.cn:ads-sdk-pro:4.6.0.7'
+
 }
 repositories {
     mavenCentral()

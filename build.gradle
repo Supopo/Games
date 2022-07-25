@@ -19,6 +19,10 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
+        //GroMore SDK依赖
+        maven {
+            url "https://artifact.bytedance.com/repository/pangle"
+        }
     }
 }
 
