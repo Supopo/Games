@@ -27,12 +27,8 @@ public class ShowTruthOrDareDialog {
     private List<TagBean> dos;
     private View.OnClickListener onClickListener;
     private int type;//1-真心话 2-大冒险
-    private int num;
 
-    public ShowTruthOrDareDialog(Context context) {
-        this.context = context;
-        init(context);
-    }
+    public ShowTruthOrDareDialog() { }
 
     public ShowTruthOrDareDialog(Context context, String name, List<TagBean> quas, List<TagBean> dos) {
         this.context = context;
@@ -117,8 +113,6 @@ public class ShowTruthOrDareDialog {
             if (tvPass.getText().toString().contains("换一题")) {
                 //随机刷题
                 tvTip.setText(type == 1 ? getQua() : getDo());
-                num++;
-                tvPass.setText("换一题 " + num);
             }
 
         });

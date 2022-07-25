@@ -19,4 +19,12 @@ public class CallSettingActivity extends BaseActivity<ActivityCallSettingBinding
     public int initVariableId() {
         return BR.viewModel;
     }
+
+    @Override
+    public void initData() {
+        super.initData();
+        binding.tvBack.setOnClickListener(lis -> {
+            finish();
+        });
+    }
 }
