@@ -1,4 +1,4 @@
-package com.xxx.games.mahjong;
+package com.xxx.games.bean;
 
 /**
  * Created by Supopo. on 2021/12/9.

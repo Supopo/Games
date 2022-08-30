@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.xxx.games.R;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.TagBean;
 
 import java.util.List;
 import java.util.Random;

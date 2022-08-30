@@ -6,6 +6,7 @@ import android.util.Log;
 import com.bytedance.sdk.openadsdk.TTAdConfig;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdSdk;
+import com.pgyer.pgyersdk.PgyerSDKManager;
 import com.tencent.mmkv.MMKV;
 import com.xxx.games.BuildConfig;
 
@@ -28,7 +29,13 @@ public class MApplication extends BaseApplication {
         KLog.init(BuildConfig.DEBUG);
         //初始化MMKV
         MMKV.initialize(this);
+        //蒲公英
+        initPgyerSDK();
+        //广告
+        initTTAdSDK();
+    }
 
+    private void initTTAdSDK() {
         //代码位ID:949298664
         TTAdConfig ttAdConfig = new TTAdConfig.Builder()
                 .appId(Constant.AD_APPID)
@@ -54,4 +61,11 @@ public class MApplication extends BaseApplication {
             }
         });
     }
+
+    private void initPgyerSDK() {
+        new PgyerSDKManager.Init()
+                .setContext(this) //设置上下问对象
+                .start();
+    }
+
 }

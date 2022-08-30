@@ -9,6 +9,7 @@ import com.bytedance.sdk.openadsdk.TTAdLoadType;
 import com.bytedance.sdk.openadsdk.TTAdNative;
 import com.bytedance.sdk.openadsdk.TTAdSdk;
 import com.bytedance.sdk.openadsdk.TTRewardVideoAd;
+import com.pgyer.pgyersdk.PgyerSDKManager;
 import com.xxx.games.angryUncle.AngryUncleActivity;
 import com.xxx.games.app.Constant;
 import com.xxx.games.call.CallSettingActivity;
@@ -44,6 +45,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void initData() {
         super.initData();
+        //检查更新
+        PgyerSDKManager.checkSoftwareUpdate(this);
         initAd();
     }
 

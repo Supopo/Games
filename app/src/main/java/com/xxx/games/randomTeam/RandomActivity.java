@@ -6,14 +6,12 @@ import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.xxx.games.BR;
 import com.xxx.games.R;
 import com.xxx.games.addPlayer.AddPlayerActivity;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.TagBean;
 import com.xxx.games.databinding.ActivityRandomBinding;
-import com.xxx.games.truthOrDare.TruthOrDareActivity;
 import com.xxx.games.utils.AutoLineLayoutManager;
 import com.xxx.games.utils.BaseUtils;
 

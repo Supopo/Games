@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.TagBean;
 import com.xxx.games.databinding.ActivityAddDosBinding;
 
 import java.util.ArrayList;

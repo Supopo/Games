@@ -4,9 +4,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.PicBean;
 import com.xxx.games.databinding.ItemPicsBinding;
-import com.xxx.games.databinding.ItemTagsBinding;
 
 public class PicsAdapter extends BaseQuickAdapter<PicBean, BaseViewHolder> {
     public PicsAdapter(int layoutResId) {

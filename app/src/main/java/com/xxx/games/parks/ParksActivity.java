@@ -5,27 +5,14 @@ import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableBoolean;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.nineoldandroids.view.ViewHelper;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.angryUncle.PicBean;
 import com.xxx.games.databinding.ActivityParksBinding;
-import com.xxx.games.databinding.ActivityWhoIsBinding;
-import com.xxx.games.poker.PokersAdapter;
 import com.xxx.games.poker.Rotatable;
 import com.xxx.games.utils.BaseUtils;
 
@@ -34,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

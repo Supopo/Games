@@ -1,11 +1,8 @@
-package com.xxx.games.addPlayer;
+package com.xxx.games.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import me.goldze.mvvmhabit.utils.ColorsUtils;

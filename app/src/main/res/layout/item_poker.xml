@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.xxx.games.angryUncle.PicBean" />
+            type="com.xxx.games.bean.PicBean" />
     </data>
 
     <RelativeLayout

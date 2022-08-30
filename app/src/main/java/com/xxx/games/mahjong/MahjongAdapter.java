@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.xxx.games.R;
+import com.xxx.games.bean.MahjongBean;
 import com.xxx.games.databinding.ItemMahjongBinding;
 
 public class MahjongAdapter extends BaseQuickAdapter<MahjongBean, BaseViewHolder> {

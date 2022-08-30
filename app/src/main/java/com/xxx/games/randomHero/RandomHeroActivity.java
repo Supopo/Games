@@ -1,23 +1,20 @@
 package com.xxx.games.randomHero;
 
 import android.content.DialogInterface;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.TagBean;
 import com.xxx.games.databinding.ActivityRandomHeroBinding;
 import com.xxx.games.randomTeam.NamesAdapter;
 import com.xxx.games.utils.AutoLineLayoutManager;
 import com.xxx.games.utils.BaseUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 

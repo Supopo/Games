@@ -21,7 +21,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xxx.games.BR;
 import com.xxx.games.R;
-import com.xxx.games.angryUncle.PicBean;
+import com.xxx.games.bean.PicBean;
 import com.xxx.games.databinding.ActivityWhoIsBinding;
 import com.xxx.games.utils.BaseUtils;
 

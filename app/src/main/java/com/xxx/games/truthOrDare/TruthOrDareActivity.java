@@ -2,34 +2,26 @@ package com.xxx.games.truthOrDare;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
 
-import com.tencent.mmkv.MMKV;
 import com.xxx.games.BR;
 import com.xxx.games.R;
 import com.xxx.games.addPlayer.AddPlayerActivity;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.TagBean;
 import com.xxx.games.app.Constant;
 import com.xxx.games.databinding.ActivityTruthOrDareBinding;
 import com.xxx.games.utils.FileUtils;
 import com.xxx.games.widget.ITurntableListener;
 import com.xxx.games.widget.ShowTruthOrDareDialog;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.base.BaseViewModel;
-import me.goldze.mvvmhabit.utils.ACache;
 
 /**
  * 真心话大冒险

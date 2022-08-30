@@ -4,8 +4,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.xxx.games.angryUncle.PicBean;
-import com.xxx.games.databinding.ItemPicsBinding;
+import com.xxx.games.bean.PicBean;
 import com.xxx.games.databinding.ItemPokerBinding;
 
 public class PokersAdapter extends BaseQuickAdapter<PicBean, BaseViewHolder> {

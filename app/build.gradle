@@ -2,10 +2,14 @@ plugins {
     id 'com.android.application'
 }
 
+// 构建时间
+def generateTime() {
+    return new Date().format("yyyyMMddHHmm")
+}
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
@@ -14,11 +18,22 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    // 创建一个名为keystorePropertiesFile的变量，并将其初始化为rootProject文件夹中的keystore.properties文件。
+    // 自定义打包名称
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "games_${buildType.name}_v${versionName}_${generateTime()}.apk"
+            //什么也不需要可以选择直接 "自定义name.apk"
+            // buildType.name 代表构建类型（release/debug）
+            // versionName 如下图中defaultConfig中的显示
+        }
+    }
+
+
+// 创建一个名为keystorePropertiesFile的变量，并将其初始化为rootProject文件夹中的keystore.properties文件。
     def keystorePropertiesFile = rootProject.file("keystore.properties")
-    // 初始化一个名为keystoreProperties的新Properties（）对象
+// 初始化一个名为keystoreProperties的新Properties（）对象
     def keystoreProperties = new Properties()
-    // 将keystore.properties文件加载到keystoreProperties对象中
+// 将keystore.properties文件加载到keystoreProperties对象中
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
     signingConfigs {
         release {
@@ -71,8 +86,10 @@ dependencies {
     api rootProject.ext.dependencies.nineoldandroids
     api rootProject.ext.dependencies.mmkv
 
-    implementation 'com.pangle.cn:ads-sdk-pro:4.6.0.7'
-
+    //https://www.csjplatform.com/supportcenter/5395
+    implementation 'com.pangle.cn:ads-sdk-pro:4.7.1.2'
+    //https://www.pgyer.com/manager/dashboard/app/64e61b901edef39200ce380b7454a7e5
+    implementation 'com.pgyer:analytics:4.2.0'
 }
 repositories {
     mavenCentral()

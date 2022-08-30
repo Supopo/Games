@@ -1,4 +1,4 @@
-package com.xxx.games.angryUncle;
+package com.xxx.games.bean;
 
 import me.goldze.mvvmhabit.utils.ColorsUtils;
 

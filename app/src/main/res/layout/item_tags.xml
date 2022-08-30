@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.xxx.games.addPlayer.TagBean" />
+            type="com.xxx.games.bean.TagBean" />
     </data>
 
     <RelativeLayout

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.xxx.games.BR;
 import com.xxx.games.R;
+import com.xxx.games.bean.PicBean;
 import com.xxx.games.databinding.ActivityAngryUncleBinding;
 import com.xxx.games.utils.BaseUtils;
 import com.xxx.games.widget.ShowAngryPkqDialog;

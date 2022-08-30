@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.xxx.games.BR;
 import com.xxx.games.R;
+import com.xxx.games.bean.MahjongBean;
+import com.xxx.games.bean.PlayerBean;
 import com.xxx.games.databinding.ActivityMahjongBinding;
 
 import java.util.ArrayList;

@@ -4,10 +4,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.xxx.games.addPlayer.TagBean;
+import com.xxx.games.bean.TagBean;
 import com.xxx.games.databinding.ItemTagsBinding;
-
-import me.goldze.mvvmhabit.utils.ColorsUtils;
 
 public class TagsAdapter extends BaseQuickAdapter<TagBean, BaseViewHolder> {
     public TagsAdapter(int layoutResId) {
