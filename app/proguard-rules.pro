@@ -25,37 +25,41 @@
 # 基本指令区域（没什么别的需求不需要动）
 #
 #############################################
-# 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
+
+# 指定代码的压缩级别 0 - 7(指定代码进行迭代优化的次数，在Android里面默认是5，这条指令也只有在可以优化时起作用。)
 -optimizationpasses 5
-
-# 混合时不使用大小写混合，混合后的类名为小写
+# 混淆时不会产生形形色色的类名(混淆时不使用大小写混合类名)
 -dontusemixedcaseclassnames
-
-# 指定不去忽略非公共库的类
+# 指定不去忽略非公共的库类(不跳过library中的非public的类)
 -dontskipnonpubliclibraryclasses
-
-# 这句话能够使我们的项目混淆后产生映射文件
-# 包含有类名->混淆后类名的映射关系
--verbose
-
-# 指定不去忽略非公共库的类成员
+# 指定不去忽略包可见的库类的成员
 -dontskipnonpubliclibraryclassmembers
-
-# 不做预校验，preverify是proguard的四个步骤之一，Android不需要preverify，去掉这一步能够加快混淆速度。
+#不进行优化，建议使用此选项，
+-dontoptimize
+ # 不进行预校验,Android不需要,可加快混淆速度。
 -dontpreverify
-
-# 保留Annotation不混淆
--keepattributes *Annotation*,InnerClasses
-
-# 避免混淆泛型
--keepattributes Signature
-
-# 抛出异常时保留代码行号
--keepattributes SourceFile,LineNumberTable
-
+# 屏蔽警告
+-ignorewarnings
 # 指定混淆是采用的算法，后面的参数是一个过滤器
 # 这个过滤器是谷歌推荐的算法，一般不做更改
--optimizations !code/simplification/cast,!field/*,!class/merging/*
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+# 保护代码中的Annotation不被混淆
+-keepattributes *Annotation*
+# 避免混淆泛型, 这在JSON实体映射时非常重要
+-keepattributes Signature
+# 抛出异常时保留代码行号
+-keepattributes SourceFile,LineNumberTable
+ #优化时允许访问并修改有修饰符的类和类的成员，这可以提高优化步骤的结果。
+# 比如，当内联一个公共的getter方法时，这也可能需要外地公共访问。
+# 虽然java二进制规范不需要这个，要不然有的虚拟机处理这些代码会有问题。当有优化和使用-repackageclasses时才适用。
+#指示语：不能用这个指令处理库中的代码，因为有的类和类成员没有设计成public ,而在api中可能变成public
+-allowaccessmodification
+#当有优化和使用-repackageclasses时才适用。
+-repackageclasses ''
+ # 混淆时记录日志(打印混淆的详细信息)
+ # 这句话能够使我们的项目混淆后产生映射文件
+ # 包含有类名->混淆后类名的映射关系
+-verbose
 
 
 #############################################
@@ -68,12 +72,15 @@
 # 因为这些子类都有可能被外部调用
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
+-keep public class * extends android.support.multidex.MultiDexApplication
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
 
 
 # 保留support下的所有类及其内部类
@@ -152,21 +159,92 @@
 # 移除Log类打印各个等级日志的代码，打正式包的时候可以做为禁log使用，这里可以作为禁止log打印的功能使用
 # 记得proguard-android.txt中一定不要加-dontoptimize才起作用
 # 另外的一种实现方案是通过BuildConfig.DEBUG的变量来控制
-#-assumenosideeffects class android.util.Log {
-#    public static int v(...);
-#    public static int i(...);
-#    public static int w(...);
-#    public static int d(...);
-#    public static int e(...);
-#}
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+}
 
-#-----------处理实体类---------------
-# 在开发的时候我们可以将所有的实体类放在一个包内，这样我们写一次混淆就行了。
--keep class com.xxx.games.bean.** { *; }
+# 保持测试相关的代码
+-dontnote junit.framework.**
+-dontnote junit.runner.**
+-dontwarn android.test.**
+-dontwarn android.support.test.**
+-dontwarn org.junit.**
+#
+# ----------------------------- 第三方库、框架、SDK -----------------------------
 
-# 自定义View的类
--keep class com.xxx.games.widget.** {*;}
+# Gson
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
+-dontwarn com.google.gson.**
+-keep class com.google.gson.**{*;}
+-keep interface com.google.gson.**{*;}
+#gson
+#如果用到Gson解析包的，直接添加下面这几行就能成功混淆，不然会报错。
+##---------------Begin: proguard configuration for Gson  ----------
+# Gson uses generic type information stored in a class file when working with fields. Proguard
+# removes such information by default, so configure it to keep all of it.
+-keepattributes Signature
+# For using GSON @Expose annotation
+-keepattributes *Annotation*
+# Gson specific classes
+-dontwarn sun.misc.**
+#-keep class com.google.gson.stream.** { *; }
+# Prevent proguard from stripping interface information from TypeAdapterFactory,
+# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+# Application classes that will be serialized/deserialized over Gso
 
+# OkHttp3
+-dontwarn okhttp3.logging.**
+-keep class okhttp3.internal.**{*;}
+-dontwarn okio.**
+
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+#-keepattributes Signature-keepattributes Exceptions
+# Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+# Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+
+#Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+#RxPermission
+-keep class com.tbruyelle.rxpermissions2.** { *; }
+
+#Bugly SDK
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
 
 # 穿山甲混淆 3900版本及以上版本
 -keep class com.bytedance.sdk.openadsdk.** { *; }
@@ -177,3 +255,12 @@
 -keep class com.bytedance.embedapplog.** {*;}
 -keep class com.bytedance.embed_dr.** {*;}
 -keep class com.bykv.vk.** {*;}
+
+#-----------自己项目相关---------------
+# 在开发的时候我们可以将所有的实体类放在一个包内，这样我们写一次混淆就行了。
+-keep class com.xxx.games.bean.** { *; }
+
+# 自定义View的类
+-keep class com.xxx.games.widget.** {*;}
+
+
