@@ -1,11 +1,11 @@
 ext {
     //android开发版本配置
     android = [
-            compileSdkVersion  : 30,
-            buildToolsVersion  : "30.0.3",
+            compileSdkVersion  : 35,
+            buildToolsVersion  : "35.0.0",
             applicationId      : "com.xxx.games",
             minSdkVersion      : 23,
-            targetSdkVersion   : 30,
+            targetSdkVersion   : 35,
             versionCode        : 1,
             versionName        : "1.0.0",
             sourceCompatibility: JavaVersion.VERSION_1_8,
@@ -66,7 +66,7 @@ ext {
             "butterknife"                          : "com.jakewharton:butterknife:8.6.0",
             "butterknife-compiler"                 : "com.jakewharton:butterknife-compiler:8.6.0",
             //QMUI小功能控件库
-            "qmui"                                 : "com.qmuiteam:qmui:2.0.0-alpha02",
+            "qmui"                                 : "com.qmuiteam:qmui:2.1.0",
             "fastjson"                             : "com.alibaba:fastjson:1.2.73",
             //Banner
             "banner"                               : "com.github.pinguo-zhouwei:MZBannerView:v2.0.2",

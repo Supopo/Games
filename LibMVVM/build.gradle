@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 android {
+    namespace "me.goldze.mvvmhabit"
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -7,8 +8,8 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
     }
-    dataBinding {
-        enabled true
+    buildFeatures {
+        dataBinding true
     }
     buildTypes {
         release {
@@ -82,7 +83,5 @@ dependencies {
     //BaseQuickAdapter
     api rootProject.ext.dependencies.adapter
     api rootProject.ext.dependencies.mmkv
-
-
 
 }

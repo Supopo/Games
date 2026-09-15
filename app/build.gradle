@@ -8,33 +8,29 @@ def generateTime() {
 }
 
 android {
+    namespace "com.xxx.games"
     compileSdkVersion rootProject.ext.android.compileSdkVersion
+    
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     // 自定义打包名称
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "games_${buildType.name}_v${versionName}_${generateTime()}.apk"
-            //什么也不需要可以选择直接 "自定义name.apk"
-            // buildType.name 代表构建类型（release/debug）
-            // versionName 如下图中defaultConfig中的显示
         }
     }
 
-
-// 创建一个名为keystorePropertiesFile的变量，并将其初始化为rootProject文件夹中的keystore.properties文件。
     def keystorePropertiesFile = rootProject.file("keystore.properties")
-// 初始化一个名为keystoreProperties的新Properties（）对象
     def keystoreProperties = new Properties()
-// 将keystore.properties文件加载到keystoreProperties对象中
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    
     signingConfigs {
         release {
             storeFile file(keystoreProperties['storeFile'])
@@ -60,25 +56,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    
     compileOptions {
         sourceCompatibility = rootProject.ext.android.sourceCompatibility
         targetCompatibility = rootProject.ext.android.targetCompatibility
     }
 
-    dataBinding {
-        enabled true
+    buildFeatures {
+        dataBinding true
     }
 }
 
-
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':LibMVVM')
 
@@ -86,11 +81,6 @@ dependencies {
     api rootProject.ext.dependencies.nineoldandroids
     api rootProject.ext.dependencies.mmkv
 
-    //https://www.csjplatform.com/supportcenter/5395
     implementation 'com.pangle.cn:ads-sdk-pro:4.7.1.2'
-    //https://www.pgyer.com/manager/dashboard/app/64e61b901edef39200ce380b7454a7e5
     implementation 'com.pgyer:analytics:4.2.0'
-}
-repositories {
-    mavenCentral()
 }
