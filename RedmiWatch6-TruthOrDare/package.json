@@ -1,0 +1,20 @@
+{
+  "name": "redmi-watch6-truth-or-dare",
+  "version": "1.0.0",
+  "description": "真心话大冒险 - 适配 REDMI Watch 6 的 Xiaomi Vela JS 应用",
+  "scripts": {
+    "start": "aiot start --watch",
+    "emulator": "powershell -ExecutionPolicy Bypass -File ./scripts/start-redmi-watch.ps1",
+    "build": "aiot build",
+    "release": "aiot release",
+    "devices": "aiot getConnectedDevices",
+    "create-avd": "aiot createVVD",
+    "init-emulator": "aiot initEmulatorEnv"
+  },
+  "devDependencies": {
+    "aiot-toolkit": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

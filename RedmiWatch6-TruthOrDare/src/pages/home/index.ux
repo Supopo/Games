@@ -1,0 +1,207 @@
+<template>
+  <div class="page">
+    <text class="title">真心话大冒险</text>
+    <text class="hint">第 {{roundCount}} 轮 · {{playerCount}} 人</text>
+
+    <div class="wheel-box">
+      <text class="wheel-name">{{displayName}}</text>
+      <text class="wheel-tip">{{spinning ? '抽取中...' : (lastPlayer ? '上次抽中 · 可再次开始' : '点击下方开始')}}</text>
+    </div>
+
+    <div class="btn btn-pink start-btn" @click="onStart">
+      <text class="btn-text">{{spinning ? '抽取中' : '开始抽取'}}</text>
+    </div>
+
+    <div class="row footer">
+      <div class="btn btn-purple mini-btn" @click="goPlayers">
+        <text class="btn-text mini-text">玩家</text>
+      </div>
+      <div class="btn btn-gray mini-btn" @click="resetRound">
+        <text class="btn-text mini-text">重置</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import vibrator from '@system.vibrator'
+import { getPlayers, getRoundCount, setRoundCount, getLastPlayer, setLastPlayer } from '../../common/scripts/storage.js'
+import { randomIndex } from '../../common/scripts/utils.js'
+
+export default {
+  private: {
+    players: [],
+    playerCount: 0,
+    roundCount: 0,
+    displayName: '准备就绪',
+    lastPlayer: '',
+    spinning: false,
+    timerId: null,
+    tick: 0
+  },
+
+  onInit() {
+    this.refresh()
+  },
+
+  onShow() {
+    this.refresh()
+  },
+
+  onDestroy() {
+    this.clearTimer()
+  },
+
+  async refresh() {
+    const players = await getPlayers()
+    const roundCount = await getRoundCount()
+    const lastPlayer = await getLastPlayer()
+    this.players = players
+    this.playerCount = players.length
+    this.roundCount = roundCount
+    this.lastPlayer = lastPlayer
+
+    if (this.spinning) {
+      return
+    }
+
+    if (lastPlayer && players.indexOf(lastPlayer) >= 0) {
+      this.displayName = lastPlayer
+    } else if (players.length === 0) {
+      this.displayName = '暂无玩家'
+    } else {
+      this.displayName = '准备就绪'
+    }
+  },
+
+  clearTimer() {
+    if (this.timerId) {
+      clearInterval(this.timerId)
+      this.timerId = null
+    }
+  },
+
+  async onStart() {
+    if (this.spinning) {
+      return
+    }
+    if (!this.players || this.players.length === 0) {
+      this.displayName = '请先添加玩家'
+      return
+    }
+
+    this.spinning = true
+    this.tick = 0
+    this.clearTimer()
+
+    this.timerId = setInterval(() => {
+      this.tick += 1
+      const idx = randomIndex(this.players.length)
+      this.displayName = this.players[idx]
+
+      if (this.tick >= 18) {
+        this.clearTimer()
+        this.finishSpin()
+      }
+    }, 80)
+  },
+
+  async finishSpin() {
+    const winnerIndex = randomIndex(this.players.length)
+    const winner = this.players[winnerIndex]
+    this.displayName = winner
+    this.lastPlayer = winner
+    this.spinning = false
+
+    this.roundCount += 1
+    await setRoundCount(this.roundCount)
+    await setLastPlayer(winner)
+
+    try {
+      vibrator.vibrate({ mode: 'short' })
+    } catch (e) {
+      console.warn('vibrator not available')
+    }
+
+    router.push({
+      uri: 'pages/result',
+      params: {
+        name: winner
+      }
+    })
+  },
+
+  goPlayers() {
+    if (this.spinning) {
+      return
+    }
+    router.push({ uri: 'pages/players' })
+  },
+
+  async resetRound() {
+    if (this.spinning) {
+      return
+    }
+    this.roundCount = 0
+    this.lastPlayer = ''
+    await setRoundCount(0)
+    await setLastPlayer('')
+    this.displayName = '准备就绪'
+  }
+}
+</script>
+
+<style>
+@import '../../common/styles/app.css';
+
+.wheel-box {
+  width: 320px;
+  height: 200px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  border-radius: 100px;
+  background-color: #2A1B3D;
+  border-width: 4px;
+  border-color: #E94484;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.wheel-name {
+  font-size: 40px;
+  font-weight: bold;
+  color: #EEE685;
+  text-align: center;
+  lines: 2;
+  text-overflow: ellipsis;
+}
+
+.wheel-tip {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #B8A9C9;
+  text-align: center;
+}
+
+.start-btn {
+  width: 280px;
+}
+
+.footer {
+  margin-top: 12px;
+  width: 320px;
+}
+
+.mini-btn {
+  width: 140px;
+  height: 64px;
+  margin-top: 8px;
+}
+
+.mini-text {
+  font-size: 24px;
+}
+</style>

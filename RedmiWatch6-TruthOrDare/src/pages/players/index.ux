@@ -1,0 +1,169 @@
+<template>
+  <div class="page players-page">
+    <text class="title">玩家管理</text>
+    <text class="hint">当前 {{players.length}} 人（2~8）</text>
+
+    <div class="row count-row">
+      <div class="btn btn-gray round-btn" @click="decrease">
+        <text class="btn-text">-</text>
+      </div>
+      <text class="count-text">{{players.length}}</text>
+      <div class="btn btn-pink round-btn" @click="increase">
+        <text class="btn-text">+</text>
+      </div>
+    </div>
+
+    <list class="player-list">
+      <list-item type="player" class="player-item" for="{{players}}">
+        <text class="player-item-text">{{$item}}</text>
+        <text class="delete-text" @click="removePlayer($idx)">删除</text>
+      </list-item>
+    </list>
+
+    <div class="row footer">
+      <div class="btn btn-gray mini-btn" @click="goBack">
+        <text class="btn-text mini-text">返回</text>
+      </div>
+      <div class="btn btn-green mini-btn" @click="saveAndBack">
+        <text class="btn-text mini-text">保存</text>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import prompt from '@system.prompt'
+import { getPlayers, setPlayers } from '../../common/scripts/storage.js'
+import { makePlayersByCount } from '../../common/scripts/utils.js'
+
+export default {
+  private: {
+    players: []
+  },
+
+  async onInit() {
+    this.players = await getPlayers()
+  },
+
+  decrease() {
+    if (this.players.length <= 2) {
+      this.toast('至少需要 2 名玩家')
+      return
+    }
+    this.players = makePlayersByCount(this.players.length - 1)
+  },
+
+  increase() {
+    if (this.players.length >= 8) {
+      this.toast('最多 8 名玩家')
+      return
+    }
+    this.players = makePlayersByCount(this.players.length + 1)
+  },
+
+  removePlayer(index) {
+    if (this.players.length <= 2) {
+      this.toast('至少需要 2 名玩家')
+      return
+    }
+    const next = this.players.slice()
+    next.splice(index, 1)
+    // 手表输入受限，删除后按序号重建，保持简洁
+    this.players = makePlayersByCount(next.length)
+  },
+
+  async saveAndBack() {
+    await setPlayers(this.players)
+    this.toast('已保存')
+    router.back()
+  },
+
+  goBack() {
+    router.back()
+  },
+
+  toast(message) {
+    try {
+      prompt.showToast({ message: message, duration: 1500 })
+    } catch (e) {
+      console.info(message)
+    }
+  }
+}
+</script>
+
+<style>
+@import '../../common/styles/app.css';
+
+.players-page {
+  justify-content: flex-start;
+  padding-top: 28px;
+}
+
+.count-row {
+  width: 280px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.round-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.count-text {
+  font-size: 40px;
+  color: #EEE685;
+  font-weight: bold;
+  width: 80px;
+  text-align: center;
+}
+
+.player-list {
+  width: 100%;
+  flex-grow: 1;
+  margin-top: 8px;
+}
+
+.player-item {
+  height: 64px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 8px;
+  background-color: #2A1B3D;
+  border-radius: 16px;
+}
+
+.player-item-text {
+  font-size: 26px;
+  color: #FFFFFF;
+}
+
+.delete-text {
+  font-size: 24px;
+  color: #E94484;
+}
+
+.footer {
+  width: 320px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.mini-btn {
+  width: 140px;
+  height: 64px;
+}
+
+.mini-text {
+  font-size: 24px;
+}
+</style>
