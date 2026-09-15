@@ -1,0 +1,39 @@
+{
+  "package": "com.xxx.games.truthordare",
+  "name": "真心话大冒险",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "minPlatformVersion": 1000,
+  "minAPILevel": 1,
+  "icon": "/common/images/logo.png",
+  "deviceTypeList": ["watch"],
+  "features": [
+    { "name": "system.router" },
+    { "name": "system.storage" },
+    { "name": "system.vibrator" },
+    { "name": "system.prompt" }
+  ],
+  "config": {
+    "logLevel": "log",
+    "designWidth": 480
+  },
+  "router": {
+    "entry": "pages/home",
+    "pages": {
+      "pages/home": {
+        "component": "index"
+      },
+      "pages/result": {
+        "component": "index"
+      },
+      "pages/players": {
+        "component": "index"
+      }
+    }
+  },
+  "display": {
+    "backgroundColor": "#1A1028",
+    "titleBar": false,
+    "menu": false
+  }
+}

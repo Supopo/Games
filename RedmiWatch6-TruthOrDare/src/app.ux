@@ -1,0 +1,37 @@
+<script>
+/**
+ * 真心话大冒险 - REDMI Watch 6
+ * 基于手机版 Games 项目 truthOrDare 模块移植
+ */
+export default {
+  globalData: {
+    appName: '真心话大冒险',
+    version: '1.0.0',
+    roundCount: 0,
+    lastPlayer: ''
+  },
+
+  onCreate() {
+    console.info('[truth-or-dare] app onCreate')
+  },
+
+  onShow() {
+    console.info('[truth-or-dare] app onShow')
+  },
+
+  onHide() {
+    console.info('[truth-or-dare] app onHide')
+  },
+
+  onDestroy() {
+    console.info('[truth-or-dare] app onDestroy')
+  },
+
+  onError(err) {
+    console.error('[truth-or-dare] app onError: ' + (err && err.message))
+  }
+}
+</script>
+
+<style>
+</style>

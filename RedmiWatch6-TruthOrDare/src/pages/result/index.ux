@@ -1,0 +1,159 @@
+<template>
+  <div class="page">
+    <!-- 步骤1：选真心话 / 大冒险 -->
+    <block if="{{step === 1}}">
+      <text class="title">本轮选中</text>
+      <text class="player-name">{{playerName}}</text>
+      <text class="hint">你可以选择</text>
+      <div class="row choose-row">
+        <div class="btn btn-pink choose-btn" @click="chooseDare">
+          <text class="btn-text">大冒险</text>
+        </div>
+        <div class="btn btn-green choose-btn" @click="chooseTruth">
+          <text class="btn-text">真心话</text>
+        </div>
+      </div>
+    </block>
+
+    <!-- 步骤2：展示题目 -->
+    <block if="{{step === 2}}">
+      <text class="title">{{typeTitle}}</text>
+      <div class="card question-card">
+        <text class="question-text">{{question}}</text>
+      </div>
+      <div class="row choose-row">
+        <div class="btn btn-gray action-btn" @click="onReject">
+          <text class="btn-text">拒绝</text>
+        </div>
+        <div class="btn btn-purple action-btn" @click="onChange">
+          <text class="btn-text">换一题</text>
+        </div>
+        <div class="btn btn-green action-btn" @click="onAccept">
+          <text class="btn-text">同意</text>
+        </div>
+      </div>
+    </block>
+
+    <!-- 步骤3：拒绝惩罚（对齐手机版逻辑） -->
+    <block if="{{step === 3}}">
+      <text class="title">拒绝游戏</text>
+      <text class="hint">自己的选择，跪着也要完成！</text>
+      <text class="player-name">喝酒酒吧</text>
+      <div class="btn btn-green start-btn" @click="onAccept">
+        <text class="btn-text">确定</text>
+      </div>
+    </block>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import vibrator from '@system.vibrator'
+import { QUESTIONS } from '../../common/scripts/questions.js'
+import { DARES } from '../../common/scripts/dares.js'
+import { pickOne } from '../../common/scripts/utils.js'
+
+export default {
+  // public 字段用于接收 router.push 的 params
+  public: {
+    name: ''
+  },
+  private: {
+    playerName: '',
+    step: 1,
+    type: 0,
+    typeTitle: '',
+    question: ''
+  },
+
+  onInit() {
+    this.playerName = this.name || '未知玩家'
+    this.step = 1
+  },
+
+  chooseTruth() {
+    this.type = 1
+    this.typeTitle = '真心话'
+    this.question = pickOne(QUESTIONS)
+    this.step = 2
+    this.vibrateSoft()
+  },
+
+  chooseDare() {
+    this.type = 2
+    this.typeTitle = '大冒险'
+    this.question = pickOne(DARES)
+    this.step = 2
+    this.vibrateSoft()
+  },
+
+  onChange() {
+    this.question = this.type === 1 ? pickOne(QUESTIONS) : pickOne(DARES)
+  },
+
+  onReject() {
+    this.step = 3
+  },
+
+  onAccept() {
+    router.back()
+  },
+
+  vibrateSoft() {
+    try {
+      vibrator.vibrate({ mode: 'short' })
+    } catch (e) {
+      // REDMI Watch 6 支持 vibrate，个别固件可能受限
+    }
+  }
+}
+</script>
+
+<style>
+@import '../../common/styles/app.css';
+
+.player-name {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  font-size: 44px;
+  font-weight: bold;
+  color: #EEE685;
+  text-align: center;
+  lines: 2;
+  text-overflow: ellipsis;
+}
+
+.choose-row {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.choose-btn {
+  width: 180px;
+}
+
+.action-btn {
+  width: 120px;
+  height: 64px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.question-card {
+  min-height: 180px;
+  margin-top: 12px;
+}
+
+.question-text {
+  font-size: 28px;
+  color: #FFFFFF;
+  text-align: center;
+  lines: 6;
+  text-overflow: ellipsis;
+}
+
+.start-btn {
+  width: 240px;
+  margin-top: 24px;
+}
+</style>
