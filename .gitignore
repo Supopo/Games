@@ -10,3 +10,8 @@
 local.properties
 
 /.idea/
+
+# 签名密钥，禁止提交
+keystore.properties
+*.jks
+*.keystore

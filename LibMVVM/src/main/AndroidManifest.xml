@@ -1,14 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-    package="me.goldze.mvvmhabit">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application>
         <activity
             android:name=".base.ContainerActivity"
-            android:configChanges="orientation|keyboardHidden"></activity>
+            android:configChanges="orientation|keyboardHidden" />
         <activity
             android:name=".crash.DefaultErrorActivity"
+            android:exported="false"
             android:process=":error_activity" />
 
         <provider
