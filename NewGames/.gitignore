@@ -2,8 +2,5 @@
 build/
 **/build/
 .idea/
-local.properties
-keystore.properties
-*.jks
-*.keystore
 *.hprof
+.kotlin
