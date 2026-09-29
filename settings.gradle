@@ -1,3 +1,0 @@
-include ':LibMVVM'
-include ':app'
-rootProject.name = "Games"
